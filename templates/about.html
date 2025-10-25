@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %}About Me - My portfolio{% endblock %}
+{% block content %}
+<section class="max-w-5xl mx-auto px-6 py-16 grid md:grid-cols-3 gap-8 items-start">
+  <div class="md:col-span-2" data-aos="fade-right">
+    <h1 class="text-3xl font-bold">About Me</h1>
+    <p class="mt-4 text-slate-300">I'm an AIML student passionate about using data and algorithms to solve complex challenges. I focus on building and training effective machine learning models, writing clean Python code, and bringing data-driven insights to life.</p>
+
+    <div class="mt-6">
+      <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" 
+         target="_blank" 
+         class="btn-primary">
+         View My Resume
+         <i class="fas fa-external-link-alt ml-2"></i>
+      </a>
+    </div>
+    
+    <h2 class="mt-8 font-semibold">Education</h2>
+    <ul class="mt-3 list-disc ml-6 text-slate-300">
+      <li>B.E in Artificial Intelligence and Machine Learning — Global Academy Of Technology (2023 - present)</li>
+    </ul>
+  </div>
+
+  <aside data-aos="fade-left" class="p-6 bg-slate-800 rounded-md">
+    <img id="profile-pic" src="{{ url_for('static', filename='images/profile.jpg') }}" class="w-36 h-36 rounded-full object-cover border-2 border-cyan-400 mx-auto cursor-pointer hover:opacity-80 transition-opacity" alt="profile">
+
+    <h3 class="text-center mt-4 font-semibold">Skills</h3>
+    
+    <div class="mt-3 grid grid-cols-2 gap-2 text-sm text-slate-300">
+  <span class="px-2 py-1 bg-slate-700 rounded flex items-center transition-transform duration-200 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-cyan-400/30">
+    <i class="fab fa-python w-4 text-center mr-2 text-cyan-400"></i>
+    Python
+  </span>
+  <span class="px-2 py-1 bg-slate-700 rounded flex items-center transition-transform duration-200 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-cyan-400/30">
+    <i class="fas fa-brain w-4 text-center mr-2 text-cyan-400"></i>
+    ML
+  </span>
+  <span class="px-2 py-1 bg-slate-700 rounded flex items-center transition-transform duration-200 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-cyan-400/30">
+    <i class="fas fa-flask w-4 text-center mr-2 text-cyan-400"></i>
+    Flask
+  </span>
+  <span class="px-2 py-1 bg-slate-700 rounded flex items-center transition-transform duration-200 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-cyan-400/30">
+    <i class="fab fa-java w-4 text-center mr-2 text-cyan-400"></i>
+    Java
+  </span>
+  <span class="px-2 py-1 bg-slate-700 rounded flex items-center transition-transform duration-200 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-cyan-400/30">
+    <i class="fas fa-c w-4 text-center mr-2 text-cyan-400"></i>
+    C
+  </span>
+  <span class="px-2 py-1 bg-slate-700 rounded flex items-center transition-transform duration-200 hover:scale-110 shadow-lg hover:shadow-xl hover:shadow-cyan-400/30">
+  <i class="fas fa-code w-4 text-center mr-2 text-cyan-400"></i>
+  HTML & CSS
+</span>
+</div>
+  </aside>
+</section>
+{% endblock %}

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>{% block title %}My portfolio{% endblock %}</title>
+
+  <!-- Tailwind via CDN (quick start) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- AOS (Animate On Scroll) -->
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+
+  <!-- Font Awesome (free icons) -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+</head>
+<link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}">
+<body class="bg-[#0f172a] text-slate-200 antialiased">
+
+  <header class="w-full border-b border-slate-800">
+    <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
+      <a href="{{ url_for('index') }}" class="font-semibold text-xl tracking-wide">Manishankar</a>
+      
+      <button id="menu-btn" class="md:hidden focus:outline-none">
+        <i class="fas fa-bars text-xl"></i>
+      </button>
+      <div class="space-x-6 hidden md:block">
+        <a href="{{ url_for('index') }}" class="hover:text-cyan-400 {% if active_page == 'home' %}text-cyan-400 font-semibold{% endif %}">Home</a>
+        <a href="{{ url_for('projects') }}" class="hover:text-cyan-400 {% if active_page == 'projects' %}text-cyan-400 font-semibold{% endif %}">Projects</a>
+        <a href="{{ url_for('about') }}" class="hover:text-cyan-400 {% if active_page == 'about' %}text-cyan-400 font-semibold{% endif %}">About</a>
+        <a href="{{ url_for('contact') }}" class="hover:text-cyan-400 {% if active_page == 'contact' %}text-cyan-400 font-semibold{% endif %}">Contact</a>
+      </div>
+    </nav>
+  </header>
+
+  <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2 border-b border-slate-800">
+    <a href="{{ url_for('index') }}" class="block hover:text-cyan-400 {% if active_page == 'home' %}text-cyan-400 font-semibold{% endif %}">Home</a>
+    <a href="{{ url_for('projects') }}" class="block hover:text-cyan-400 {% if active_page == 'projects' %}text-cyan-400 font-semibold{% endif %}">Projects</a>
+    <a href="{{ url_for('about') }}" class="block hover:text-cyan-400 {% if active_page == 'about' %}text-cyan-400 font-semibold{% endif %}">About</a>
+    <a href="{{ url_for('contact') }}" class="block hover:text-cyan-400 {% if active_page == 'contact' %}text-cyan-400 font-semibold{% endif %}">Contact</a>
+  </div>
+
+  <main class="min-h-[70vh]">
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <div class="max-w-5xl mx-auto px-6 mt-6">
+          {% for category, msg in messages %}
+            <div class="mb-3 p-3 rounded-md text-sm" data-category="{{ category }}">{{ msg }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="border-t border-slate-800 mt-8">
+    <div class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
+      <p>© {{ config.get('APP_AUTHOR', 'Mani') }} • Built with Flask</p>
+      <div class="space-x-4">
+        <a href="https://github.com/Manishankar-614" title="GitHub" class="hover:text-cyan-400"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/manishankar-dinesh-bhat" title="LinkedIn" class="hover:text-cyan-400"><i class="fab fa-linkedin"></i></a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- AOS JS -->
+ <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
+    <span id="close-modal" class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer hover:text-gray-300">&times;</span>
+    
+    <img id="modal-image" src="" alt="Profile Picture" class="max-w-full max-h-[80vh] rounded-md">
+  </div>
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  
+  <script>
+    // Initialize Animate on Scroll
+    AOS.init({ duration: 700, once: true });
+
+    // === Modal JavaScript ===
+    // Get all the elements we need
+    const profilePic = document.getElementById('profile-pic');
+    
+    // Only run this script if the profile picture exists on the current page
+    if (profilePic) {
+      const modal = document.getElementById('image-modal');
+      const modalImg = document.getElementById('modal-image');
+      const closeModal = document.getElementById('close-modal');
+
+      // When the profile picture is clicked:
+      profilePic.onclick = function() {
+        modal.classList.remove('hidden'); // Remove 'hidden' class to show the modal
+        modal.classList.add('flex');      // Add 'flex' to center the content
+        modalImg.src = this.src;          // Set the modal image's src to the clicked image's src
+      }
+
+      // Function to close the modal
+      function hideModal() {
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
+      // When the 'x' (close button) is clicked
+      closeModal.onclick = hideModal;
+
+      // Also close when clicking on the dark background overlay
+      modal.onclick = function(event) {
+        if (event.target === modal) {
+          hideModal();
+        }
+      }
+    }
+
+    // ====== START: Mobile Menu Toggle ======
+    const menuBtn = document.getElementById('menu-btn');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    menuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+    // ====== END: Mobile Menu Toggle ======
+    
+  </script>
+</body>
+</html>

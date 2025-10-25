@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block title %}Projects - My portfolio{% endblock %}
+{% block content %}
+<section class="max-w-5xl mx-auto px-6 py-16">
+  <h1 class="text-3xl font-bold mb-8">Projects</h1>
+  <div class="grid md:grid-cols-3 gap-6">
+    {% for p in projects %}
+    <article class="card" data-aos="fade-up">
+      <a href="{{ url_for('project_detail', id=p.id) }}">
+        <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }}" class="w-full h-44 object-cover rounded-t-md">
+      </a>
+      <div class="p-4">
+        <a href="{{ url_for('project_detail', id=p.id) }}" class="hover:text-cyan-400">
+          <h3 class="font-semibold">{{ p.title }}</h3>
+        </a>
+        <p class="text-sm text-slate-400 mt-2">{{ p.summary }}</p>
+        <div class="mt-4 flex justify-between items-center">
+          <div class="text-xs text-slate-400">{{ p.stack | join(', ') }}</div>
+          <div class="space-x-3">
+            <a href="{{ p.github }}" target="_blank"><i class="fab fa-github hover:text-cyan-400"></i></a>
+            <a href="{{ p.live }}" target="_blank"><i class="fas fa-external-link-alt hover:text-cyan-400"></i></a>
+          </div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% block title %}Home - My portfolio{% endblock %}
+{% block content %}
+<section id="home" class="home-section">
+  <div class="home-content">
+    <!-- Left column: Intro + buttons + social links -->
+    <div class="left-column"> <h1 data-aos="fade-right" data-aos-delay="100">
+        Hi, I'm <span class="highlight">Manishankar Dinesh Bhat</span>
+      </h1>
+      
+      <p data-aos="fade-right" data-aos-delay="200">
+        Welcome to my world of code and data. I'm an AIML student passionate about turning complex ideas into practical, real-world solutions. Explore my projects to see what I'm building!
+      </p>
+
+      <div class="mt-6 flex flex-wrap gap-4" data-aos="fade-right" data-aos-delay="300">
+        <a href="{{ url_for('projects') }}" class="btn-primary">View My Work</a>
+        <a href="{{ url_for('contact') }}" class="btn-ghost">Contact Me</a>
+      </div>
+
+      <div class"social-links mt-4 flex flex-wrap gap-4" data-aos="fade-right" data-aos-delay="400">
+        <a href="https://github.com/Manishankar-614" target="_blank" title="GitHub" class="social-icon">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://linkedin.com/in/manishankar-dinesh-bhat" target="_blank" title="LinkedIn" class="social-icon">
+          <i class="fab fa-linkedin"></i>
+        </a>
+        <a href="https://instagram.com/manishankar_d_bhat" target="_blank" title="Instagram" class="social-icon">
+          <i class="fab fa-instagram"></i>
+        </a>
+        <a href="mailto:manihat2005@gmail.com" title="Email" class="social-icon">
+          <i class="fas fa-envelope"></i>
+        </a>
+        <a href="tel:+919380875845" title="Phone" class="social-icon">
+          <i class="fas fa-phone"></i>
+        </a>
+      </div>
+      
+    </div>
+
+    <!-- Right column: Anime image -->
+    <div class="right-column" data-aos="fade-left">
+      <img src="{{ url_for('static', filename='images/my_anime.png') }}" 
+           alt="Anime Character" 
+           class="anime-image" />
+    </div>
+  </div>
+</section>
+{% endblock %}

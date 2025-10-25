@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}{{ project.title }} - My portfolio{% endblock %}
+
+{% block content %}
+<section class="max-w-4xl mx-auto px-6 py-16">
+
+  <h1 class="text-3xl font-bold">{{ project.title }}</h1>
+  
+  <div class="mt-4 flex flex-wrap gap-4 justify-between items-center">
+    <div class="text-sm text-slate-400">
+      {{ project.stack | join(' • ') }}
+    </div>
+    <div class="space-x-4">
+      <a href="{{ project.github }}" target="_blank" class="btn-ghost">
+        <i class="fab fa-github mr-2"></i> GitHub
+      </a>
+      <a href="{{ project.live }}" target="_blank" class_name="btn-primary">
+        <i class="fas fa-external-link-alt mr-2"></i> Live Demo
+      </a>
+    </div>
+  </div>
+
+  <img src="{{ url_for('static', filename=project.image) }}" alt="{{ project.title }}" class="w-full h-auto object-cover rounded-md my-8 shadow-xl">
+
+  <h2 class="text-2xl font-semibold mb-3">Project Overview</h2>
+  <div class="text-slate-300 space-y-4">
+    <p>{{ project.description | replace('\n', '<br>') | safe }}</p>
+  </div>
+
+  {% if project.challenges %}
+  <h2 class="text-2xl font-semibold mt-8 mb-3">Challenges & Solutions</h2>
+  <div class="text-slate-300 space-y-4">
+    <p>{{ project.challenges | replace('\n', '<br>') | safe }}</p>
+  </div>
+  {% endif %}
+
+  <div class="mt-12">
+    <a href="{{ url_for('projects') }}" class="text-cyan-400 hover:text-cyan-300">
+      <i class="fas fa-arrow-left mr-2"></i>
+      Back to all projects
+    </a>
+  </div>
+
+</section>
+{% endblock %}
