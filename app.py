@@ -19,8 +19,8 @@ PROJECTS = [
         "summary": "The portfolio website you're looking at now, built with Flask, Tailwind CSS, and Python.",
         "image": "images/project1.png",
         "stack": ["Flask", "Tailwind CSS", "Python"],
-        "github": "https://github.com/mani-614/portfolio",
-        "live": "#",
+        "github": "https://github.com/mani-614/My_Portfolio",
+        "live": "https://my-portfolio-zv2n.onrender.com",
         "description": (
             "This portfolio is a dynamic Flask application designed to showcase my skills and projects. "
             "It's built from scratch using Tailwind CSS for responsive, utility-first design, and deployed... (add more here)"
