@@ -21,6 +21,9 @@
   <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
+  <!-- Three.js CDN for Interactive 3D Graphics -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
   <!-- Igloo Style CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
@@ -54,6 +57,11 @@
       </ul>
 
       <div style="display: flex; gap: 8px; align-items: center;">
+        <!-- Interactive Sound Effects Toggle -->
+        <button id="sound-toggle-btn" class="icon-circle-btn" style="width: 34px; height: 34px; font-size: 0.85rem;" title="Toggle Futuristic Sound FX">
+          <i class="fas fa-volume-up" id="sound-icon"></i>
+        </button>
+
         <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" target="_blank" class="nav-cta" title="Download Resume">
           <i class="fas fa-file-pdf"></i>
           <span>Resume</span>

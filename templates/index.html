@@ -4,7 +4,7 @@
 {% block content %}
 
 <!-- ========================================================================
-     1. HERO SECTION
+     1. HERO SECTION WITH INTERACTIVE 3D THREE.JS HOLOGRAPHIC CORE
      ======================================================================== -->
 <section id="hero" class="hero-section">
   <div class="hero-grid">
@@ -58,26 +58,30 @@
       </div>
     </div>
 
-    <!-- Right Column: Interactive 3D Visual & Anime Character -->
+    <!-- Right Column: Interactive 3D Hologram & Character Visual -->
     <div class="hero-visual-wrapper" data-aos="zoom-in" data-aos-delay="300">
       <div class="avatar-halo"></div>
 
-      <div class="avatar-card-container tilt-element">
+      <!-- 3D Three.js Interactive Holographic Container -->
+      <div id="three-container" class="threejs-hero-box tilt-element">
+        <canvas id="hero-three-canvas"></canvas>
+
         <!-- Floating Badge 1 -->
-        <div class="floating-chip floating-chip-1">
+        <div class="floating-chip floating-chip-1" style="z-index: 10;">
           <i class="fas fa-shield-alt text-cyan-neon" style="color: var(--cyan-neon);"></i>
           <span>BERT & Cyber AI</span>
         </div>
 
-        <!-- Anime Character Image -->
-        <img src="{{ url_for('static', filename='images/my_anime.png') }}" 
-             alt="Manishankar Anime Character Avatar" 
-             class="hero-avatar-image" />
-
         <!-- Floating Badge 2 -->
-        <div class="floating-chip floating-chip-2">
+        <div class="floating-chip floating-chip-2" style="z-index: 10;">
           <i class="fas fa-brain text-cyan-neon" style="color: var(--cyan-neon);"></i>
           <span>Computer Vision & CNN</span>
+        </div>
+
+        <!-- Interactive 3D Control Hint -->
+        <div class="three-hint-badge">
+          <i class="fas fa-hand-pointer text-cyan-neon"></i>
+          <span>Interactive 3D Hologram • Drag to Rotate</span>
         </div>
       </div>
     </div>

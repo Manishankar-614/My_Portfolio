@@ -1,5 +1,6 @@
 /**
  * Manishankar Portfolio - Igloo.inc Inspired Interactions
+ * Featuring Interactive 3D Three.js Cyber Hologram & Synthesized Audio FX
  */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -11,6 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectModal();
   initCopyEmail();
   initMobileMenu();
+  initHeroThreeJS();
+  initAudioFX();
   handleInitialAnchorOrModal();
 });
 
@@ -96,7 +99,343 @@ function initBackgroundCanvas() {
 }
 
 /* --------------------------------------------------------------------------
-   3. ScrollSpy & Dock Navigation
+   3. Interactive 3D Three.js Holographic Cyber Core
+   -------------------------------------------------------------------------- */
+function initHeroThreeJS() {
+  const canvas = document.getElementById('hero-three-canvas');
+  if (!canvas || typeof THREE === 'undefined') return;
+
+  const container = document.getElementById('three-container');
+  const width = container.clientWidth || 400;
+  const height = container.clientHeight || 400;
+
+  // Scene, Camera, Renderer
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+  camera.position.z = 6.5;
+
+  const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    alpha: true,
+    antialias: true,
+  });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  // 1. Holographic Wireframe Core (Icosahedron)
+  const coreGeo = new THREE.IcosahedronGeometry(1.6, 2);
+  const coreMat = new THREE.MeshStandardMaterial({
+    color: 0x00f0ff,
+    wireframe: true,
+    emissive: 0x00f0ff,
+    emissiveIntensity: 0.4,
+    transparent: true,
+    opacity: 0.65,
+  });
+  const coreMesh = new THREE.Mesh(coreGeo, coreMat);
+  scene.add(coreMesh);
+
+  // 2. Inner Solid Glow Sphere
+  const innerGeo = new THREE.SphereGeometry(1.0, 32, 32);
+  const innerMat = new THREE.MeshBasicMaterial({
+    color: 0x0b1426,
+    transparent: true,
+    opacity: 0.85,
+  });
+  const innerSphere = new THREE.Mesh(innerGeo, innerMat);
+  scene.add(innerSphere);
+
+  // 3. Floating Anime Character Center Sprite
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.load('/static/images/my_anime.png', (texture) => {
+    const spriteMat = new THREE.SpriteMaterial({
+      map: texture,
+      transparent: true,
+      opacity: 0.95,
+    });
+    const sprite = new THREE.Sprite(spriteMat);
+    sprite.scale.set(2.4, 2.4, 1);
+    scene.add(sprite);
+  });
+
+  // 4. Outer Orbital Cyber Rings
+  const ringGeo1 = new THREE.TorusGeometry(2.3, 0.02, 16, 100);
+  const ringMat1 = new THREE.MeshBasicMaterial({
+    color: 0x00f0ff,
+    transparent: true,
+    opacity: 0.7,
+  });
+  const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
+  ring1.rotation.x = Math.PI / 3;
+  scene.add(ring1);
+
+  const ringGeo2 = new THREE.TorusGeometry(2.6, 0.015, 16, 100);
+  const ringMat2 = new THREE.MeshBasicMaterial({
+    color: 0xa855f7,
+    transparent: true,
+    opacity: 0.6,
+  });
+  const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
+  ring2.rotation.y = Math.PI / 4;
+  scene.add(ring2);
+
+  // 5. Particle Dust Nebula
+  const particleGeo = new THREE.BufferGeometry();
+  const particleCount = 200;
+  const posArray = new Float32Array(particleCount * 3);
+
+  for (let i = 0; i < particleCount * 3; i++) {
+    posArray[i] = (Math.random() - 0.5) * 8;
+  }
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+  const particleMat = new THREE.PointsMaterial({
+    size: 0.04,
+    color: 0x00f0ff,
+    transparent: true,
+    opacity: 0.8,
+  });
+  const particleMesh = new THREE.Points(particleGeo, particleMat);
+  scene.add(particleMesh);
+
+  // Lighting
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.8);
+  scene.add(ambientLight);
+
+  const pointLight1 = new THREE.PointLight(0x00f0ff, 2, 50);
+  pointLight1.position.set(5, 5, 5);
+  scene.add(pointLight1);
+
+  const pointLight2 = new THREE.PointLight(0xa855f7, 2, 50);
+  pointLight2.position.set(-5, -5, 5);
+  scene.add(pointLight2);
+
+  // Mouse / Touch Drag Physics
+  let isDragging = false;
+  let prevMousePos = { x: 0, y: 0 };
+  let targetRotation = { x: 0, y: 0 };
+  let currentRotation = { x: 0, y: 0 };
+
+  canvas.addEventListener('mousedown', (e) => {
+    isDragging = true;
+    prevMousePos = { x: e.clientX, y: e.clientY };
+  });
+
+  window.addEventListener('mouseup', () => {
+    isDragging = false;
+  });
+
+  window.addEventListener('mousemove', (e) => {
+    if (isDragging) {
+      const deltaX = e.clientX - prevMousePos.x;
+      const deltaY = e.clientY - prevMousePos.y;
+      targetRotation.y += deltaX * 0.008;
+      targetRotation.x += deltaY * 0.008;
+      prevMousePos = { x: e.clientX, y: e.clientY };
+    } else {
+      // Gentle parallax follow
+      const normX = (e.clientX / window.innerWidth - 0.5) * 0.4;
+      const normY = (e.clientY / window.innerHeight - 0.5) * 0.4;
+      camera.position.x += (normX - camera.position.x) * 0.05;
+      camera.position.y += (-normY - camera.position.y) * 0.05;
+      camera.lookAt(scene.position);
+    }
+  });
+
+  // Touch support
+  canvas.addEventListener('touchstart', (e) => {
+    if (e.touches.length === 1) {
+      isDragging = true;
+      prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  }, { passive: true });
+
+  window.addEventListener('touchend', () => {
+    isDragging = false;
+  });
+
+  window.addEventListener('touchmove', (e) => {
+    if (isDragging && e.touches.length === 1) {
+      const deltaX = e.touches[0].clientX - prevMousePos.x;
+      const deltaY = e.touches[0].clientY - prevMousePos.y;
+      targetRotation.y += deltaX * 0.008;
+      targetRotation.x += deltaY * 0.008;
+      prevMousePos = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+    }
+  }, { passive: true });
+
+  // Animation Loop
+  let clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const elapsedTime = clock.getElapsedTime();
+
+    // Constant cinematic spin
+    if (!isDragging) {
+      targetRotation.y += 0.004;
+      targetRotation.x += 0.001;
+    }
+
+    // Smooth inertia interpolation
+    currentRotation.x += (targetRotation.x - currentRotation.x) * 0.1;
+    currentRotation.y += (targetRotation.y - currentRotation.y) * 0.1;
+
+    coreMesh.rotation.x = currentRotation.x;
+    coreMesh.rotation.y = currentRotation.y;
+
+    ring1.rotation.z = elapsedTime * 0.3;
+    ring1.rotation.x = currentRotation.x + Math.PI / 3;
+
+    ring2.rotation.z = -elapsedTime * 0.25;
+    ring2.rotation.y = currentRotation.y + Math.PI / 4;
+
+    particleMesh.rotation.y = elapsedTime * 0.05;
+
+    // Subtle breathing scale
+    const scale = 1 + Math.sin(elapsedTime * 1.5) * 0.03;
+    coreMesh.scale.set(scale, scale, scale);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Resize handler
+  window.addEventListener('resize', () => {
+    const newWidth = container.clientWidth || 400;
+    const newHeight = container.clientHeight || 400;
+    camera.aspect = newWidth / newHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(newWidth, newHeight);
+  });
+}
+
+/* --------------------------------------------------------------------------
+   4. Synthesized Futuristic Web Audio Sound FX Engine
+   -------------------------------------------------------------------------- */
+function initAudioFX() {
+  let audioCtx = null;
+  let isMuted = localStorage.getItem('sound_fx_enabled') === 'false';
+
+  const soundBtn = document.getElementById('sound-toggle-btn');
+  const soundIcon = document.getElementById('sound-icon');
+
+  function updateSoundUI() {
+    if (soundBtn && soundIcon) {
+      if (isMuted) {
+        soundBtn.classList.add('sound-muted');
+        soundIcon.className = 'fas fa-volume-mute';
+      } else {
+        soundBtn.classList.remove('sound-muted');
+        soundIcon.className = 'fas fa-volume-up';
+      }
+    }
+  }
+  updateSoundUI();
+
+  if (soundBtn) {
+    soundBtn.addEventListener('click', () => {
+      isMuted = !isMuted;
+      localStorage.setItem('sound_fx_enabled', (!isMuted).toString());
+      updateSoundUI();
+      if (!isMuted) playChirp(600, 0.08);
+    });
+  }
+
+  function getAudioContext() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (AudioContextClass) audioCtx = new AudioContextClass();
+    }
+    if (audioCtx && audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  function playPop(freq = 480, duration = 0.05) {
+    if (isMuted) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 1.5, ctx.currentTime + duration);
+
+      gain.gain.setValueAtTime(0.04, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function playChirp(freq = 700, duration = 0.08) {
+    if (isMuted) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(freq * 0.6, ctx.currentTime + duration);
+
+      gain.gain.setValueAtTime(0.06, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + duration);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + duration);
+    } catch (e) {}
+  }
+
+  function playWhoosh() {
+    if (isMuted) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(250, ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(750, ctx.currentTime + 0.15);
+
+      gain.gain.setValueAtTime(0.05, ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+
+      osc.start();
+      osc.stop(ctx.currentTime + 0.15);
+    } catch (e) {}
+  }
+
+  // Attach sound triggers to interactive elements
+  document.querySelectorAll('.nav-link, .filter-btn, .skill-chip, .icon-circle-btn, .btn-igloo-primary, .btn-igloo-secondary, .quick-contact-box, .social-pill-card').forEach((el) => {
+    el.addEventListener('mouseenter', () => playPop(440, 0.04));
+  });
+
+  document.querySelectorAll('.filter-btn, .btn-open-modal, [data-copy-email]').forEach((el) => {
+    el.addEventListener('click', () => playChirp(800, 0.06));
+  });
+
+  window.playWhoosh = playWhoosh;
+}
+
+/* --------------------------------------------------------------------------
+   5. ScrollSpy & Dock Navigation
    -------------------------------------------------------------------------- */
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');
@@ -126,7 +465,7 @@ function initScrollSpy() {
 }
 
 /* --------------------------------------------------------------------------
-   4. 3D Perspective Tilt on Project & Showcase Cards
+   6. 3D Perspective Tilt on Project & Showcase Cards
    -------------------------------------------------------------------------- */
 function init3DTilt() {
   const cards = document.querySelectorAll('.tilt-element');
@@ -141,8 +480,8 @@ function init3DTilt() {
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
 
-      const rotateX = ((y - centerY) / centerY) * -7;
-      const rotateY = ((x - centerX) / centerX) * 7;
+      const rotateX = ((y - centerY) / centerY) * -6;
+      const rotateY = ((x - centerX) / centerX) * 6;
 
       card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-6px)`;
     });
@@ -154,7 +493,7 @@ function init3DTilt() {
 }
 
 /* --------------------------------------------------------------------------
-   5. Projects Category Filtering
+   7. Projects Category Filtering
    -------------------------------------------------------------------------- */
 function initProjectFilters() {
   const filterBtns = document.querySelectorAll('.filter-btn');
@@ -188,7 +527,7 @@ function initProjectFilters() {
 }
 
 /* --------------------------------------------------------------------------
-   6. Project Modal Controller (Igloo Drawer)
+   8. Project Modal Controller (Igloo Drawer)
    -------------------------------------------------------------------------- */
 function initProjectModal() {
   const modalOverlay = document.getElementById('project-modal');
@@ -238,6 +577,7 @@ function initProjectModal() {
       modalLive.style.display = project.live && project.live !== '#' ? 'inline-flex' : 'none';
     }
 
+    if (window.playWhoosh) window.playWhoosh();
     modalOverlay.classList.add('open');
     document.body.style.overflow = 'hidden';
   }
@@ -276,7 +616,7 @@ function initProjectModal() {
 }
 
 /* --------------------------------------------------------------------------
-   7. Copy Email with Toast Notification
+   9. Copy Email with Toast Notification
    -------------------------------------------------------------------------- */
 function initCopyEmail() {
   const copyBoxes = document.querySelectorAll('[data-copy-email]');
@@ -302,7 +642,7 @@ function initCopyEmail() {
 }
 
 /* --------------------------------------------------------------------------
-   8. Mobile Navigation Drawer
+   10. Mobile Navigation Drawer
    -------------------------------------------------------------------------- */
 function initMobileMenu() {
   const menuBtn = document.getElementById('mobile-menu-btn');
@@ -333,10 +673,9 @@ function initMobileMenu() {
 }
 
 /* --------------------------------------------------------------------------
-   9. Initial Anchor or Modal Navigation Handler
+   11. Initial Anchor or Modal Navigation Handler
    -------------------------------------------------------------------------- */
 function handleInitialAnchorOrModal() {
-  // If server set active section or hash exists
   const hash = window.location.hash;
   if (hash) {
     const target = document.querySelector(hash);
