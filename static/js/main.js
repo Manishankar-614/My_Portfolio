@@ -122,66 +122,57 @@ function initHeroThreeJS() {
   renderer.setSize(width, height);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
-  // 1. Holographic Wireframe Core (Icosahedron)
-  const coreGeo = new THREE.IcosahedronGeometry(1.6, 2);
-  const coreMat = new THREE.MeshStandardMaterial({
+  // 1. Holographic Cyber Force Field Aura (Geodesic Wireframe)
+  const coreGeo = new THREE.IcosahedronGeometry(2.3, 1);
+  const coreMat = new THREE.MeshBasicMaterial({
     color: 0x00f0ff,
     wireframe: true,
-    emissive: 0x00f0ff,
-    emissiveIntensity: 0.4,
     transparent: true,
-    opacity: 0.65,
+    opacity: 0.35,
   });
   const coreMesh = new THREE.Mesh(coreGeo, coreMat);
   scene.add(coreMesh);
 
-  // 2. Inner Solid Glow Sphere
-  const innerGeo = new THREE.SphereGeometry(1.0, 32, 32);
-  const innerMat = new THREE.MeshBasicMaterial({
-    color: 0x0b1426,
-    transparent: true,
-    opacity: 0.85,
-  });
-  const innerSphere = new THREE.Mesh(innerGeo, innerMat);
-  scene.add(innerSphere);
-
-  // 3. Floating Anime Character Center Sprite
+  // 2. Floating Anime Character Sprite (Crystal Clear, Face Fully Visible)
   const textureLoader = new THREE.TextureLoader();
   textureLoader.load('/static/images/my_anime.png', (texture) => {
     const spriteMat = new THREE.SpriteMaterial({
       map: texture,
       transparent: true,
-      opacity: 0.95,
+      opacity: 1.0,
+      depthTest: false,
     });
     const sprite = new THREE.Sprite(spriteMat);
-    sprite.scale.set(2.4, 2.4, 1);
+    sprite.scale.set(3.4, 3.4, 1);
+    sprite.position.set(0, 0, 0);
+    sprite.renderOrder = 999;
     scene.add(sprite);
   });
 
-  // 4. Outer Orbital Cyber Rings
-  const ringGeo1 = new THREE.TorusGeometry(2.3, 0.02, 16, 100);
+  // 3. Outer Orbital Cyber Rings
+  const ringGeo1 = new THREE.TorusGeometry(2.7, 0.02, 16, 100);
   const ringMat1 = new THREE.MeshBasicMaterial({
     color: 0x00f0ff,
     transparent: true,
-    opacity: 0.7,
+    opacity: 0.65,
   });
   const ring1 = new THREE.Mesh(ringGeo1, ringMat1);
   ring1.rotation.x = Math.PI / 3;
   scene.add(ring1);
 
-  const ringGeo2 = new THREE.TorusGeometry(2.6, 0.015, 16, 100);
+  const ringGeo2 = new THREE.TorusGeometry(3.0, 0.015, 16, 100);
   const ringMat2 = new THREE.MeshBasicMaterial({
     color: 0xa855f7,
     transparent: true,
-    opacity: 0.6,
+    opacity: 0.55,
   });
   const ring2 = new THREE.Mesh(ringGeo2, ringMat2);
   ring2.rotation.y = Math.PI / 4;
   scene.add(ring2);
 
-  // 5. Particle Dust Nebula
+  // 4. Particle Dust Nebula
   const particleGeo = new THREE.BufferGeometry();
-  const particleCount = 200;
+  const particleCount = 180;
   const posArray = new Float32Array(particleCount * 3);
 
   for (let i = 0; i < particleCount * 3; i++) {
@@ -422,8 +413,92 @@ function initAudioFX() {
     } catch (e) {}
   }
 
+  function playConquerorsHaki() {
+    if (isMuted) return;
+    try {
+      const ctx = getAudioContext();
+      if (!ctx) return;
+      const now = ctx.currentTime;
+
+      // 1. Deep Haoshoku Sub-Bass Pressure Pulse
+      const oscSub = ctx.createOscillator();
+      const gainSub = ctx.createGain();
+      oscSub.type = 'sine';
+      oscSub.frequency.setValueAtTime(150, now);
+      oscSub.frequency.exponentialRampToValueAtTime(36, now + 0.85);
+      gainSub.gain.setValueAtTime(0.28, now);
+      gainSub.gain.exponentialRampToValueAtTime(0.001, now + 1.4);
+      oscSub.connect(gainSub);
+      gainSub.connect(ctx.destination);
+      oscSub.start(now);
+      oscSub.stop(now + 1.4);
+
+      // 2. Heavy Resonant Distortion Hum
+      const oscSaw = ctx.createOscillator();
+      const filter = ctx.createBiquadFilter();
+      const gainSaw = ctx.createGain();
+      oscSaw.type = 'sawtooth';
+      oscSaw.frequency.setValueAtTime(85, now);
+      oscSaw.frequency.exponentialRampToValueAtTime(42, now + 1.0);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(380, now);
+      filter.frequency.exponentialRampToValueAtTime(75, now + 1.0);
+      filter.Q.setValueAtTime(10, now);
+      gainSaw.gain.setValueAtTime(0.2, now);
+      gainSaw.gain.exponentialRampToValueAtTime(0.001, now + 1.2);
+      oscSaw.connect(filter);
+      filter.connect(gainSaw);
+      gainSaw.connect(ctx.destination);
+      oscSaw.start(now);
+      oscSaw.stop(now + 1.2);
+
+      // 3. Lightning Crackle Sparks
+      const bufferSize = Math.floor(ctx.sampleRate * 0.6);
+      const buffer = ctx.createBuffer(1, bufferSize, ctx.sampleRate);
+      const data = buffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.12)) * (Math.random() > 0.82 ? 1.0 : 0.05);
+      }
+      const noise = ctx.createBufferSource();
+      noise.buffer = buffer;
+      const noiseFilter = ctx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(2200, now);
+      noiseFilter.Q.setValueAtTime(3, now);
+      const noiseGain = ctx.createGain();
+      noiseGain.gain.setValueAtTime(0.22, now);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.6);
+      noise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(ctx.destination);
+      noise.start(now + 0.03);
+    } catch (e) {}
+
+    triggerHakiVisualShockwave();
+  }
+
+  function triggerHakiVisualShockwave() {
+    const overlay = document.getElementById('haki-overlay');
+    document.body.classList.remove('haki-active');
+    void document.body.offsetWidth;
+    document.body.classList.add('haki-active');
+
+    if (overlay) {
+      overlay.classList.remove('active');
+      void overlay.offsetWidth;
+      overlay.classList.add('active');
+      setTimeout(() => {
+        overlay.classList.remove('active');
+      }, 1000);
+    }
+
+    setTimeout(() => {
+      document.body.classList.remove('haki-active');
+    }, 700);
+  }
+
   // Attach sound triggers to interactive elements
-  document.querySelectorAll('.nav-link, .filter-btn, .skill-chip, .icon-circle-btn, .btn-igloo-primary, .btn-igloo-secondary, .quick-contact-box, .social-pill-card').forEach((el) => {
+  document.querySelectorAll('.nav-link, .filter-btn, .skill-chip, .icon-circle-btn, .btn-igloo-primary, .btn-igloo-secondary, .quick-contact-box, .social-pill-card, .haki-trigger-btn').forEach((el) => {
     el.addEventListener('mouseenter', () => playPop(440, 0.04));
   });
 
@@ -431,7 +506,22 @@ function initAudioFX() {
     el.addEventListener('click', () => playChirp(800, 0.06));
   });
 
+  const hakiBtn = document.getElementById('haki-btn');
+  if (hakiBtn) {
+    hakiBtn.addEventListener('click', () => {
+      playConquerorsHaki();
+    });
+  }
+
+  const threeCanvas = document.getElementById('hero-three-canvas');
+  if (threeCanvas) {
+    threeCanvas.addEventListener('click', () => {
+      playConquerorsHaki();
+    });
+  }
+
   window.playWhoosh = playWhoosh;
+  window.playConquerorsHaki = playConquerorsHaki;
 }
 
 /* --------------------------------------------------------------------------
