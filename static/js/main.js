@@ -544,6 +544,16 @@ function initProjectModal() {
   const modalLive = document.getElementById('modal-live');
 
   function openProject(projectId) {
+    if (!window.PROJECT_DATA) {
+      const dataEl = document.getElementById('projects-data');
+      if (dataEl) {
+        try {
+          window.PROJECT_DATA = JSON.parse(dataEl.textContent);
+        } catch (e) {
+          window.PROJECT_DATA = [];
+        }
+      }
+    }
     if (!window.PROJECT_DATA) return;
     const project = window.PROJECT_DATA.find((p) => p.id === parseInt(projectId));
     if (!project) return;
@@ -686,9 +696,10 @@ function handleInitialAnchorOrModal() {
     }
   }
 
-  if (window.INITIAL_PROJECT_ID && window.openProjectModal) {
+  const initialId = document.body.dataset.openProjectId || window.INITIAL_PROJECT_ID;
+  if (initialId && window.openProjectModal) {
     setTimeout(() => {
-      window.openProjectModal(window.INITIAL_PROJECT_ID);
+      window.openProjectModal(parseInt(initialId));
     }, 300);
   }
 }

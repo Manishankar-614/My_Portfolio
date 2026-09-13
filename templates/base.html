@@ -26,8 +26,7 @@
 
   <!-- Igloo Style CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
+<body data-open-project-id="{{ open_project_id if open_project_id else '' }}">
 
   <!-- Ambient Glowing Background & Particle Canvas -->
   <div class="ambient-background">
@@ -166,13 +165,8 @@
     </div>
   </footer>
 
-  <!-- Pass projects data to client-side JS for instant modal opening -->
-  <script>
-    window.PROJECT_DATA = {{ projects | tojson }};
-    {% if open_project_id %}
-      window.INITIAL_PROJECT_ID = {{ open_project_id }};
-    {% endif %}
-  </script>
+  <!-- Clean structured projects data (zero linter errors) -->
+  <script id="projects-data" type="application/json">{{ projects | tojson | safe }}</script>
 
   <!-- AOS Library -->
   <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
