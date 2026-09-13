@@ -1,4 +1,4 @@
-from flask import Flask, render_template, jsonify, redirect, url_for, send_from_directory
+from flask import Flask, render_template, jsonify, redirect, url_for, send_from_directory, Response
 import os
 
 app = Flask(__name__)
@@ -121,6 +121,35 @@ def project_detail(id):
 @app.route("/api/projects")
 def api_projects():
     return jsonify(PROJECTS)
+
+@app.route("/robots.txt")
+def robots():
+    content = "User-agent: *\nAllow: /\nSitemap: https://my-portfolio-zv2n.onrender.com/sitemap.xml\n"
+    return Response(content, mimetype="text/plain")
+
+@app.route("/sitemap.xml")
+def sitemap():
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://my-portfolio-zv2n.onrender.com/</loc>
+    <priority>1.0</priority>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://my-portfolio-zv2n.onrender.com/#about</loc>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://my-portfolio-zv2n.onrender.com/#projects</loc>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://my-portfolio-zv2n.onrender.com/#contact</loc>
+    <priority>0.7</priority>
+  </url>
+</urlset>"""
+    return Response(content, mimetype="application/xml")
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

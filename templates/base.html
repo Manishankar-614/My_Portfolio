@@ -36,6 +36,38 @@
 
   <!-- Igloo Style CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+  <!-- Schema.org JSON-LD Structured Data for Google Search Knowledge Graph -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Manishankar Dinesh Bhat",
+    "jobTitle": "AI/ML & Python Developer",
+    "url": "https://my-portfolio-zv2n.onrender.com",
+    "image": "https://my-portfolio-zv2n.onrender.com/static/images/my_anime.png",
+    "sameAs": [
+      "https://github.com/Manishankar-614",
+      "https://linkedin.com/in/manishankar-dinesh-bhat",
+      "https://instagram.com/manishankar_d_bhat"
+    ],
+    "alumniOf": {
+      "@type": "EducationalOrganization",
+      "name": "Global Academy of Technology"
+    },
+    "knowsAbout": [
+      "Artificial Intelligence",
+      "Machine Learning",
+      "BERT Transformer",
+      "Computer Vision",
+      "Deep Learning",
+      "Python",
+      "Cybersecurity AI",
+      "Flask",
+      "TensorFlow"
+    ]
+  }
+  </script>
 </head>
 <body data-open-project-id="{{ open_project_id if open_project_id else '' }}" data-theme="cyan">
 

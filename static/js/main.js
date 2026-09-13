@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initProjectFilters();
   initProjectModal();
   initCopyEmail();
+  initContactForm();
   initMobileMenu();
   handleInitialAnchorOrModal();
 });
@@ -399,7 +400,71 @@ function initCopyEmail() {
 }
 
 /* --------------------------------------------------------------------------
-   8. Mobile Navigation Drawer
+   8. AJAX Formspree Contact Form Controller
+   -------------------------------------------------------------------------- */
+function initContactForm() {
+  const form = document.getElementById('contact-form');
+  const statusContainer = document.getElementById('form-status');
+  const submitBtn = document.getElementById('form-submit-btn');
+  const resetBtn = document.getElementById('form-reset-btn');
+  const toast = document.getElementById('toast');
+
+  if (!form || !statusContainer) return;
+
+  function showToast(msg) {
+    if (!toast) return;
+    toast.querySelector('.toast-msg').textContent = msg;
+    toast.classList.add('show');
+    setTimeout(() => {
+      toast.classList.remove('show');
+    }, 3200);
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const originalBtnHTML = submitBtn.innerHTML;
+    submitBtn.disabled = true;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Transmitting Message...</span>';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          Accept: 'application/json',
+        },
+      });
+
+      if (response.ok) {
+        form.style.display = 'none';
+        statusContainer.style.display = 'block';
+        form.reset();
+        showToast('✓ Message transmitted successfully!');
+      } else {
+        const data = await response.json();
+        const errorMsg = data.errors ? data.errors.map((err) => err.message).join(', ') : 'Submission failed. Please try again.';
+        showToast(`⚠️ ${errorMsg}`);
+      }
+    } catch (err) {
+      showToast('⚠️ Network connection error. Please email directly.');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerHTML = originalBtnHTML;
+    }
+  });
+
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      statusContainer.style.display = 'none';
+      form.style.display = 'flex';
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   9. Mobile Navigation Drawer
    -------------------------------------------------------------------------- */
 function initMobileMenu() {
   const menuBtn = document.getElementById('mobile-menu-btn');
