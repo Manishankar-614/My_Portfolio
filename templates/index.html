@@ -39,10 +39,6 @@
           <i class="fas fa-file-pdf"></i>
           <span>Resume</span>
         </a>
-        <button id="haki-btn" type="button" class="haki-trigger-btn" title="Unleash Conqueror's Haki!">
-          <i class="fas fa-bolt text-red-400"></i>
-          <span>Conqueror's Haki</span>
-        </button>
       </div>
 
       <!-- Quick Stats Counter -->
@@ -62,30 +58,26 @@
       </div>
     </div>
 
-    <!-- Right Column: Interactive 3D Hologram & Character Visual -->
+    <!-- Right Column: Interactive 3D Avatar Visual -->
     <div class="hero-visual-wrapper" data-aos="zoom-in" data-aos-delay="300">
       <div class="avatar-halo"></div>
 
-      <!-- 3D Three.js Interactive Holographic Container -->
-      <div id="three-container" class="threejs-hero-box tilt-element">
-        <canvas id="hero-three-canvas"></canvas>
-
+      <div class="avatar-card-container tilt-element">
         <!-- Floating Badge 1 -->
-        <div class="floating-chip floating-chip-1" style="z-index: 10;">
+        <div class="floating-chip floating-chip-1">
           <i class="fas fa-shield-alt text-cyan-neon" style="color: var(--cyan-neon);"></i>
           <span>BERT & Cyber AI</span>
         </div>
 
+        <!-- Anime Character Image -->
+        <img src="{{ url_for('static', filename='images/my_anime.png') }}" 
+             alt="Manishankar Character Avatar" 
+             class="hero-avatar-image" />
+
         <!-- Floating Badge 2 -->
-        <div class="floating-chip floating-chip-2" style="z-index: 10;">
+        <div class="floating-chip floating-chip-2">
           <i class="fas fa-brain text-cyan-neon" style="color: var(--cyan-neon);"></i>
           <span>Computer Vision & CNN</span>
-        </div>
-
-        <!-- Interactive 3D Control Hint -->
-        <div class="three-hint-badge">
-          <i class="fas fa-hand-pointer text-cyan-neon"></i>
-          <span>Interactive 3D Hologram • Drag to Rotate</span>
         </div>
       </div>
     </div>
