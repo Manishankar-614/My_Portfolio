@@ -3,10 +3,12 @@
  */
 
 document.addEventListener('DOMContentLoaded', () => {
+  initThemeSwitcher();
   initCursorSpotlight();
   initBackgroundCanvas();
   initScrollSpy();
   init3DTilt();
+  initSkillMatrix();
   initProjectFilters();
   initProjectModal();
   initCopyEmail();
@@ -96,7 +98,92 @@ function initBackgroundCanvas() {
 }
 
 /* --------------------------------------------------------------------------
-   3. ScrollSpy & Dock Navigation
+   3. Theme Switcher Controller
+   -------------------------------------------------------------------------- */
+function initThemeSwitcher() {
+  const themeBtns = document.querySelectorAll('[data-theme-set]');
+  const savedTheme = localStorage.getItem('portfolio_theme') || 'cyan';
+
+  function applyTheme(theme) {
+    document.body.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio_theme', theme);
+
+    themeBtns.forEach((btn) => {
+      if (btn.dataset.themeSet === theme) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+
+  // Apply saved theme immediately
+  applyTheme(savedTheme);
+
+  themeBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const theme = btn.dataset.themeSet;
+      applyTheme(theme);
+    });
+  });
+}
+
+/* --------------------------------------------------------------------------
+   4. Interactive Tech Stack Matrix Controller
+   -------------------------------------------------------------------------- */
+function initSkillMatrix() {
+  const filterPills = document.querySelectorAll('.matrix-filter-pill');
+  const skillCards = document.querySelectorAll('.skill-item-card');
+  const progressFills = document.querySelectorAll('.skill-progress-fill');
+  const matrixContainer = document.querySelector('.skill-matrix-card');
+
+  // Filter skills by category
+  filterPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      filterPills.forEach((p) => p.classList.remove('active'));
+      pill.classList.add('active');
+
+      const cat = pill.dataset.skillFilter;
+      skillCards.forEach((card) => {
+        if (cat === 'all' || card.dataset.skillCat === cat) {
+          card.classList.remove('hidden');
+          card.style.opacity = '1';
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Animate progress bars on scroll intersection
+  if (matrixContainer && 'IntersectionObserver' in window) {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            progressFills.forEach((fill) => {
+              const target = fill.dataset.progress || '80%';
+              fill.style.width = target;
+            });
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.2 }
+    );
+
+    observer.observe(matrixContainer);
+  } else {
+    // Fallback if no IntersectionObserver
+    progressFills.forEach((fill) => {
+      fill.style.width = fill.dataset.progress || '80%';
+    });
+  }
+}
+
+/* --------------------------------------------------------------------------
+   5. ScrollSpy & Dock Navigation
    -------------------------------------------------------------------------- */
 function initScrollSpy() {
   const sections = document.querySelectorAll('section[id]');

@@ -4,7 +4,8 @@
 
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-:root {
+:root,
+body[data-theme="cyan"] {
   --bg-dark: #060913;
   --bg-surface: #0a0f1d;
   --bg-card: rgba(13, 20, 38, 0.65);
@@ -35,6 +36,30 @@
   
   --shadow-glow: 0 0 30px rgba(0, 240, 255, 0.25);
   --shadow-card: 0 10px 40px -10px rgba(0, 0, 0, 0.7);
+}
+
+body[data-theme="violet"] {
+  --cyan-neon: #c084fc;
+  --cyan-glow: rgba(192, 132, 252, 0.4);
+  --blue-electric: #ec4899;
+  --border-glow: rgba(192, 132, 252, 0.45);
+  --shadow-glow: 0 0 30px rgba(192, 132, 252, 0.3);
+}
+
+body[data-theme="emerald"] {
+  --cyan-neon: #10b981;
+  --cyan-glow: rgba(16, 185, 129, 0.4);
+  --blue-electric: #06b6d4;
+  --border-glow: rgba(16, 185, 129, 0.45);
+  --shadow-glow: 0 0 30px rgba(16, 185, 129, 0.3);
+}
+
+body[data-theme="amber"] {
+  --cyan-neon: #f59e0b;
+  --cyan-glow: rgba(245, 158, 11, 0.4);
+  --blue-electric: #ef4444;
+  --border-glow: rgba(245, 158, 11, 0.45);
+  --shadow-glow: 0 0 30px rgba(245, 158, 11, 0.3);
 }
 
 /* Reset & Base */
@@ -285,6 +310,68 @@ h1, h2, h3, h4, h5, h6 {
   background: rgba(255, 255, 255, 0.18);
   border-color: var(--cyan-neon);
   transform: translateY(-1px);
+}
+
+/* Theme Switcher in Nav Dock */
+.theme-switcher-dock {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 4px 8px;
+  border-radius: var(--radius-full);
+}
+
+.theme-dot-btn {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.theme-dot-btn[data-theme-set="cyan"] {
+  background: #00f0ff;
+  box-shadow: 0 0 6px rgba(0, 240, 255, 0.6);
+}
+
+.theme-dot-btn[data-theme-set="violet"] {
+  background: #c084fc;
+  box-shadow: 0 0 6px rgba(192, 132, 252, 0.6);
+}
+
+.theme-dot-btn[data-theme-set="emerald"] {
+  background: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.theme-dot-btn[data-theme-set="amber"] {
+  background: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+
+.theme-dot-btn.active {
+  border-color: #ffffff;
+  transform: scale(1.25);
+}
+
+.theme-dot-btn:hover {
+  transform: scale(1.35);
+}
+
+.mobile-theme-picker {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-subtle);
+  width: 80%;
+  max-width: 260px;
 }
 
 /* Mobile Menu Button */
@@ -760,64 +847,136 @@ h1, h2, h3, h4, h5, h6 {
   color: var(--text-muted);
 }
 
-/* Skills Categories Grid */
+/* Interactive Tech Stack Matrix Card */
 .skills-column {
+  display: flex;
+  flex-direction: column;
+}
+
+.skill-matrix-card {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.skill-category-box {
-  background: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  border-radius: var(--radius-md);
-  padding: 20px;
-  transition: all 0.25s ease;
-}
-
-.skill-category-box:hover {
-  background: rgba(255, 255, 255, 0.04);
-  border-color: rgba(0, 240, 255, 0.2);
-}
-
-.skill-category-title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--cyan-neon);
-  margin-bottom: 12px;
+.skill-matrix-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  border-bottom: 1px solid var(--border-subtle);
+  padding-bottom: 16px;
 }
 
-.skill-badges-wrap {
+.matrix-filter-bar {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
 
-.skill-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
+.matrix-filter-pill {
   padding: 6px 14px;
-  background: rgba(255, 255, 255, 0.05);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: var(--radius-full);
-  font-size: 0.82rem;
+  color: var(--text-secondary);
+  font-size: 0.8rem;
   font-weight: 600;
-  color: var(--text-primary);
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  transition: all 0.25s ease;
 }
 
-.skill-chip:hover {
+.matrix-filter-pill:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.matrix-filter-pill.active {
   background: rgba(0, 240, 255, 0.15);
   border-color: var(--cyan-neon);
+  color: var(--cyan-neon);
+  box-shadow: 0 0 12px var(--cyan-glow);
+}
+
+.skills-matrix-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  max-height: 440px;
+  overflow-y: auto;
+  padding-right: 6px;
+}
+
+.skills-matrix-grid::-webkit-scrollbar {
+  width: 5px;
+}
+.skills-matrix-grid::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: var(--radius-full);
+}
+
+.skill-item-card {
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: var(--radius-md);
+  padding: 14px 16px;
+  transition: all 0.25s ease;
+}
+
+.skill-item-card:hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(0, 240, 255, 0.3);
+  transform: translateX(4px);
+}
+
+.skill-item-card.hidden {
+  display: none;
+}
+
+.skill-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.skill-name {
+  font-size: 0.9rem;
+  font-weight: 700;
   color: #fff;
-  transform: translateY(-2px) scale(1.05);
-  box-shadow: 0 4px 14px rgba(0, 240, 255, 0.25);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.skill-pct {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--cyan-neon);
+}
+
+.skill-progress-track {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.skill-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--cyan-neon), var(--blue-electric));
+  border-radius: var(--radius-full);
+  box-shadow: 0 0 10px var(--cyan-glow);
+  transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.skill-meta-tag {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  font-family: var(--font-mono);
 }
 
 /* ==========================================================================

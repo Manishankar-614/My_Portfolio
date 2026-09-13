@@ -175,49 +175,147 @@
       </div>
     </div>
 
-    <!-- Right: Technical Skills Radar / Categories -->
+    <!-- Right: Interactive Tech Stack Radar & Proficiency Matrix -->
     <div class="skills-column" data-aos="fade-left">
-      <!-- Category 1: AI / ML & Transformers -->
-      <div class="skill-category-box tilt-element">
-        <div class="skill-category-title">
-          <i class="fas fa-brain"></i> Deep Learning & Transformers
+      <div class="skill-matrix-card glass-card">
+        <div class="skill-matrix-header">
+          <div class="flex items-center gap-2">
+            <i class="fas fa-layer-group text-cyan-neon" style="color: var(--cyan-neon);"></i>
+            <h3 style="font-size: 1.15rem; margin: 0;">Interactive Tech Stack Matrix</h3>
+          </div>
+          <span class="text-xs text-muted font-bold tracking-wider uppercase">Live Proficiency</span>
         </div>
-        <div class="skill-badges-wrap">
-          <span class="skill-chip"><i class="fas fa-project-diagram text-cyan-neon" style="color: var(--cyan-neon);"></i> BERT Transformer</span>
-          <span class="skill-chip"><i class="fas fa-eye text-cyan-neon" style="color: var(--cyan-neon);"></i> MobileNetV2 & CNNs</span>
-          <span class="skill-chip"><i class="fas fa-microchip text-cyan-neon" style="color: var(--cyan-neon);"></i> TensorFlow & Keras</span>
-          <span class="skill-chip"><i class="fas fa-chart-line text-cyan-neon" style="color: var(--cyan-neon);"></i> Isolation Forest</span>
-          <span class="skill-chip"><i class="fas fa-language text-cyan-neon" style="color: var(--cyan-neon);"></i> NLP Sentiment Modeling</span>
-          <span class="skill-chip"><i class="fas fa-camera text-cyan-neon" style="color: var(--cyan-neon);"></i> Computer Vision</span>
-        </div>
-      </div>
 
-      <!-- Category 2: Backend, Cloud & APIs -->
-      <div class="skill-category-box tilt-element">
-        <div class="skill-category-title">
-          <i class="fas fa-server"></i> Backend, Cloud & Security
+        <!-- Matrix Category Filter Pills -->
+        <div class="matrix-filter-bar">
+          <button type="button" class="matrix-filter-pill active" data-skill-filter="all">All Tech</button>
+          <button type="button" class="matrix-filter-pill" data-skill-filter="ai">Deep Learning & NLP</button>
+          <button type="button" class="matrix-filter-pill" data-skill-filter="backend">Backend & MLOps</button>
+          <button type="button" class="matrix-filter-pill" data-skill-filter="datascience">Data & ML</button>
+          <button type="button" class="matrix-filter-pill" data-skill-filter="languages">Languages & Tools</button>
         </div>
-        <div class="skill-badges-wrap">
-          <span class="skill-chip"><i class="fas fa-flask text-cyan-neon" style="color: var(--cyan-neon);"></i> Flask Framework</span>
-          <span class="skill-chip"><i class="fab fa-docker text-cyan-neon" style="color: var(--cyan-neon);"></i> Docker & Compose</span>
-          <span class="skill-chip"><i class="fas fa-shield-alt text-cyan-neon" style="color: var(--cyan-neon);"></i> Threat Intelligence</span>
-          <span class="skill-chip"><i class="fas fa-plug text-cyan-neon" style="color: var(--cyan-neon);"></i> RESTful APIs</span>
-          <span class="skill-chip"><i class="fab fa-react text-cyan-neon" style="color: var(--cyan-neon);"></i> React 19 & TypeScript</span>
-        </div>
-      </div>
 
-      <!-- Category 3: Core Languages & Data Tools -->
-      <div class="skill-category-box tilt-element">
-        <div class="skill-category-title">
-          <i class="fas fa-code"></i> Core Languages & Analytics
-        </div>
-        <div class="skill-badges-wrap">
-          <span class="skill-chip"><i class="fab fa-python text-cyan-neon" style="color: var(--cyan-neon);"></i> Python 3</span>
-          <span class="skill-chip"><i class="fas fa-table text-cyan-neon" style="color: var(--cyan-neon);"></i> Pandas & NumPy</span>
-          <span class="skill-chip"><i class="fas fa-cubes text-cyan-neon" style="color: var(--cyan-neon);"></i> Scikit-Learn</span>
-          <span class="skill-chip"><i class="fab fa-java text-cyan-neon" style="color: var(--cyan-neon);"></i> Java</span>
-          <span class="skill-chip"><i class="fas fa-terminal text-cyan-neon" style="color: var(--cyan-neon);"></i> C & Shell</span>
-          <span class="skill-chip"><i class="fab fa-git-alt text-cyan-neon" style="color: var(--cyan-neon);"></i> Git Version Control</span>
+        <!-- Skills Progress Grid -->
+        <div class="skills-matrix-grid">
+          <!-- Skill: BERT & Transformers -->
+          <div class="skill-item-card" data-skill-cat="ai">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fas fa-brain text-cyan-neon" style="color: var(--cyan-neon);"></i> BERT & Hugging Face</span>
+              <span class="skill-pct">92%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="92%"></div>
+            </div>
+            <div class="skill-meta-tag">PhishGuard AI • Attention Transformers</div>
+          </div>
+
+          <!-- Skill: Computer Vision & MobileNetV2 -->
+          <div class="skill-item-card" data-skill-cat="ai">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fas fa-eye text-cyan-neon" style="color: var(--cyan-neon);"></i> MobileNetV2 & CNNs</span>
+              <span class="skill-pct">90%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="90%"></div>
+            </div>
+            <div class="skill-meta-tag">Plant Disease Vision • Multi-Task Head</div>
+          </div>
+
+          <!-- Skill: TensorFlow & Keras -->
+          <div class="skill-item-card" data-skill-cat="ai">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fas fa-microchip text-cyan-neon" style="color: var(--cyan-neon);"></i> TensorFlow & Keras</span>
+              <span class="skill-pct">88%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="88%"></div>
+            </div>
+            <div class="skill-meta-tag">Model Training • Transfer Learning</div>
+          </div>
+
+          <!-- Skill: Python 3 -->
+          <div class="skill-item-card" data-skill-cat="languages">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fab fa-python text-cyan-neon" style="color: var(--cyan-neon);"></i> Python 3</span>
+              <span class="skill-pct">95%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="95%"></div>
+            </div>
+            <div class="skill-meta-tag">Core Architecture • PyTorch • NumPy</div>
+          </div>
+
+          <!-- Skill: Flask Framework & APIs -->
+          <div class="skill-item-card" data-skill-cat="backend">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fas fa-flask text-cyan-neon" style="color: var(--cyan-neon);"></i> Flask & REST APIs</span>
+              <span class="skill-pct">90%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="90%"></div>
+            </div>
+            <div class="skill-meta-tag">Production Microservices • Inferences</div>
+          </div>
+
+          <!-- Skill: Docker & Containerization -->
+          <div class="skill-item-card" data-skill-cat="backend">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fab fa-docker text-cyan-neon" style="color: var(--cyan-neon);"></i> Docker & Compose</span>
+              <span class="skill-pct">84%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="84%"></div>
+            </div>
+            <div class="skill-meta-tag">Container Deployment • CI/CD Ready</div>
+          </div>
+
+          <!-- Skill: Scikit-Learn & ML Algorithms -->
+          <div class="skill-item-card" data-skill-cat="datascience">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fas fa-chart-line text-cyan-neon" style="color: var(--cyan-neon);"></i> Scikit-Learn & Isolation Forest</span>
+              <span class="skill-pct">92%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="92%"></div>
+            </div>
+            <div class="skill-meta-tag">Anomaly Detection • TF-IDF NLP</div>
+          </div>
+
+          <!-- Skill: Pandas & Data Pipelines -->
+          <div class="skill-item-card" data-skill-cat="datascience">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fas fa-table text-cyan-neon" style="color: var(--cyan-neon);"></i> Pandas & NumPy</span>
+              <span class="skill-pct">94%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="94%"></div>
+            </div>
+            <div class="skill-meta-tag">Data Preprocessing • Feature Engineering</div>
+          </div>
+
+          <!-- Skill: React 19 & Modern Web -->
+          <div class="skill-item-card" data-skill-cat="backend">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fab fa-react text-cyan-neon" style="color: var(--cyan-neon);"></i> React 19 & Tailwind</span>
+              <span class="skill-pct">82%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="82%"></div>
+            </div>
+            <div class="skill-meta-tag">Modern SPA Frontends • Real-Time Dashboards</div>
+          </div>
+
+          <!-- Skill: Git & Version Control -->
+          <div class="skill-item-card" data-skill-cat="languages">
+            <div class="skill-info-row">
+              <span class="skill-name"><i class="fab fa-git-alt text-cyan-neon" style="color: var(--cyan-neon);"></i> Git & Linux Environment</span>
+              <span class="skill-pct">89%</span>
+            </div>
+            <div class="skill-progress-track">
+              <div class="skill-progress-fill" data-progress="89%"></div>
+            </div>
+            <div class="skill-meta-tag">Open Source Workflow • Bash Scripting</div>
+          </div>
         </div>
       </div>
     </div>
