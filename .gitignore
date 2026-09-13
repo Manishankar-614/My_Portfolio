@@ -1,4 +1,7 @@
 venv/
+portfolio/
 __pycache__/
 *.pyc
+*.zip
 data/
+.vscode/

@@ -2,127 +2,199 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>{% block title %}My portfolio{% endblock %}</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}Manishankar Dinesh Bhat — AI/ML & Python Developer{% endblock %}</title>
+  
+  <meta name="description" content="Personal portfolio of Manishankar Dinesh Bhat — AIML student, Python developer, and Machine Learning builder." />
+  
+  <!-- Favicon -->
+  <link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}" type="image/png">
 
-  <!-- Tailwind via CDN (quick start) -->
-  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Google Fonts: Outfit & Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
 
   <!-- AOS (Animate On Scroll) -->
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
-  <!-- Font Awesome (free icons) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" referrerpolicy="no-referrer" />
-
-  <!-- Custom CSS -->
+  <!-- Igloo Style CSS -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-
 </head>
-<link rel="icon" href="{{ url_for('static', filename='images/fevicon.png') }}">
-<body class="bg-[#0f172a] text-slate-200 antialiased">
+<body>
 
-  <header class="w-full border-b border-slate-800">
-    <nav class="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="{{ url_for('index') }}" class="font-semibold text-xl tracking-wide">Manishankar</a>
-      
-      <button id="menu-btn" class="md:hidden focus:outline-none">
-        <i class="fas fa-bars text-xl"></i>
-      </button>
-      <div class="space-x-6 hidden md:block">
-        <a href="{{ url_for('index') }}" class="hover:text-cyan-400 {% if active_page == 'home' %}text-cyan-400 font-semibold{% endif %}">Home</a>
-        <a href="{{ url_for('projects') }}" class="hover:text-cyan-400 {% if active_page == 'projects' %}text-cyan-400 font-semibold{% endif %}">Projects</a>
-        <a href="{{ url_for('about') }}" class="hover:text-cyan-400 {% if active_page == 'about' %}text-cyan-400 font-semibold{% endif %}">About</a>
-        <a href="{{ url_for('contact') }}" class="hover:text-cyan-400 {% if active_page == 'contact' %}text-cyan-400 font-semibold{% endif %}">Contact</a>
+  <!-- Ambient Glowing Background & Particle Canvas -->
+  <div class="ambient-background">
+    <div class="ambient-orb ambient-orb-1"></div>
+    <div class="ambient-orb ambient-orb-2"></div>
+    <div class="ambient-orb ambient-orb-3"></div>
+    <div class="cyber-grid"></div>
+  </div>
+  <canvas id="ambient-canvas" style="position: fixed; inset: 0; pointer-events: none; z-index: 1;"></canvas>
+
+  <!-- Interactive Cursor Spotlight Glow -->
+  <div class="cursor-spotlight"></div>
+
+  <!-- Floating Glassmorphic Dock Navbar -->
+  <header class="nav-dock-container">
+    <nav class="nav-dock" aria-label="Main Navigation">
+      <a href="#hero" class="nav-logo">
+        <span class="nav-logo-badge">M</span>
+        <span>Manishankar</span>
+      </a>
+
+      <ul class="nav-links">
+        <li><a href="#hero" class="nav-link active"><i class="fas fa-home text-xs"></i> Home</a></li>
+        <li><a href="#about" class="nav-link"><i class="fas fa-user-astronaut text-xs"></i> About</a></li>
+        <li><a href="#projects" class="nav-link"><i class="fas fa-cube text-xs"></i> Projects</a></li>
+        <li><a href="#contact" class="nav-link"><i class="fas fa-paper-plane text-xs"></i> Contact</a></li>
+      </ul>
+
+      <div style="display: flex; gap: 8px; align-items: center;">
+        <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" target="_blank" class="nav-cta" title="Download Resume">
+          <i class="fas fa-file-pdf"></i>
+          <span>Resume</span>
+        </a>
+        <a href="#contact" class="btn-igloo-primary" style="padding: 7px 18px; font-size: 0.85rem;">
+          <span>Let's Talk</span>
+          <i class="fas fa-arrow-right text-xs"></i>
+        </a>
       </div>
+
+      <button id="mobile-menu-btn" class="mobile-menu-btn" aria-label="Toggle menu">
+        <i class="fas fa-bars"></i>
+      </button>
     </nav>
   </header>
 
-  <div id="mobile-menu" class="hidden md:hidden px-6 pt-2 pb-4 space-y-2 border-b border-slate-800">
-    <a href="{{ url_for('index') }}" class="block hover:text-cyan-400 {% if active_page == 'home' %}text-cyan-400 font-semibold{% endif %}">Home</a>
-    <a href="{{ url_for('projects') }}" class="block hover:text-cyan-400 {% if active_page == 'projects' %}text-cyan-400 font-semibold{% endif %}">Projects</a>
-    <a href="{{ url_for('about') }}" class="block hover:text-cyan-400 {% if active_page == 'about' %}text-cyan-400 font-semibold{% endif %}">About</a>
-    <a href="{{ url_for('contact') }}" class="block hover:text-cyan-400 {% if active_page == 'contact' %}text-cyan-400 font-semibold{% endif %}">Contact</a>
+  <!-- Mobile Navigation Drawer -->
+  <div id="mobile-drawer" class="mobile-nav-drawer">
+    <button id="mobile-drawer-close" class="mobile-close-btn" aria-label="Close menu">&times;</button>
+    <a href="#hero" class="mobile-nav-link">Home</a>
+    <a href="#about" class="mobile-nav-link">About</a>
+    <a href="#projects" class="mobile-nav-link">Projects</a>
+    <a href="#contact" class="mobile-nav-link">Contact</a>
+    <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" target="_blank" class="btn-igloo-primary mt-4">
+      <i class="fas fa-file-pdf"></i> View Resume
+    </a>
   </div>
 
-  <main class="min-h-[70vh]">
-    {% with messages = get_flashed_messages(with_categories=true) %}
-      {% if messages %}
-        <div class="max-w-5xl mx-auto px-6 mt-6">
-          {% for category, msg in messages %}
-            <div class="mb-3 p-3 rounded-md text-sm" data-category="{{ category }}">{{ msg }}</div>
-          {% endfor %}
-        </div>
-      {% endif %}
-    {% endwith %}
-
+  <!-- Main Content Container -->
+  <main id="main-content">
     {% block content %}{% endblock %}
   </main>
 
-  <footer class="border-t border-slate-800 mt-8">
-    <div class="max-w-5xl mx-auto px-6 py-6 flex items-center justify-between">
-      <p>© {{ config.get('APP_AUTHOR', 'Mani') }} • Built with Flask</p>
-      <div class="space-x-4">
-        <a href="https://github.com/Manishankar-614" title="GitHub" class="hover:text-cyan-400"><i class="fab fa-github"></i></a>
-        <a href="https://linkedin.com/in/manishankar-dinesh-bhat" title="LinkedIn" class="hover:text-cyan-400"><i class="fab fa-linkedin"></i></a>
+  <!-- Project Detail Modal (Igloo Glass Drawer) -->
+  <div id="project-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-window">
+      <div class="modal-header">
+        <div>
+          <span id="modal-category" class="project-category-badge" style="position: static; margin-bottom: 6px; display: inline-block;">Category</span>
+          <h3 id="modal-title" class="modal-title">Project Title</h3>
+        </div>
+        <button id="modal-close" class="modal-close-btn" aria-label="Close modal">&times;</button>
+      </div>
+
+      <div class="modal-content-body">
+        <img id="modal-image" src="" alt="Project Preview" class="modal-banner-img">
+
+        <div class="modal-meta-row">
+          <div id="modal-tags" class="project-tags" style="margin-bottom: 0;"></div>
+          <div class="project-icon-links">
+            <a id="modal-github" href="#" target="_blank" class="btn-igloo-secondary" style="padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fab fa-github"></i> View GitHub Repo
+            </a>
+            <a id="modal-live" href="#" target="_blank" class="btn-igloo-primary" style="padding: 8px 18px; font-size: 0.85rem;">
+              <i class="fas fa-external-link-alt"></i> Live Demo
+            </a>
+          </div>
+        </div>
+
+        <h4 class="modal-section-title"><i class="fas fa-layer-group"></i> Architecture & Overview</h4>
+        <p id="modal-desc" class="modal-text"></p>
+
+        <div id="modal-challenges-container">
+          <h4 class="modal-section-title"><i class="fas fa-bolt"></i> Key Engineering Challenges & Solutions</h4>
+          <p id="modal-challenges" class="modal-text"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Image Full Modal -->
+  <div id="image-modal" class="modal-overlay">
+    <div style="position: relative; max-width: 90vw; max-height: 85vh;">
+      <button id="image-modal-close" class="modal-close-btn" style="position: absolute; top: -15px; right: -15px; z-index: 10;">&times;</button>
+      <img id="image-modal-img" src="" alt="Profile Full" style="max-width: 100%; max-height: 80vh; border-radius: var(--radius-lg); border: 2px solid var(--cyan-neon); box-shadow: 0 0 30px var(--cyan-glow);">
+    </div>
+  </div>
+
+  <!-- Toast Alert -->
+  <div id="toast" class="toast-container">
+    <div class="toast">
+      <i class="fas fa-check-circle text-cyan-neon" style="color: var(--cyan-neon);"></i>
+      <span class="toast-msg">Copied to clipboard!</span>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="igloo-footer">
+    <div class="footer-inner">
+      <div>
+        <div class="font-bold text-lg text-white" style="font-family: var(--font-heading);">Manishankar Dinesh Bhat</div>
+        <p class="footer-copy">Crafting intelligent AI systems & high-performance applications.</p>
+      </div>
+
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="https://github.com/Manishankar-614" target="_blank" class="icon-circle-btn" title="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://linkedin.com/in/manishankar-dinesh-bhat" target="_blank" class="icon-circle-btn" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://instagram.com/manishankar_d_bhat" target="_blank" class="icon-circle-btn" title="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" target="_blank" class="icon-circle-btn" title="Resume"><i class="fas fa-file-pdf"></i></a>
+        <a href="#hero" class="back-to-top-btn" title="Back to Top"><i class="fas fa-arrow-up"></i></a>
       </div>
     </div>
   </footer>
 
-  <!-- AOS JS -->
- <div id="image-modal" class="fixed inset-0 bg-black bg-opacity-75 z-50 hidden items-center justify-center p-4">
-    <span id="close-modal" class="absolute top-4 right-6 text-white text-4xl font-bold cursor-pointer hover:text-gray-300">&times;</span>
-    
-    <img id="modal-image" src="" alt="Profile Picture" class="max-w-full max-h-[80vh] rounded-md">
-  </div>
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-  
+  <!-- Pass projects data to client-side JS for instant modal opening -->
   <script>
-    // Initialize Animate on Scroll
-    AOS.init({ duration: 700, once: true });
-
-    // === Modal JavaScript ===
-    // Get all the elements we need
-    const profilePic = document.getElementById('profile-pic');
-    
-    // Only run this script if the profile picture exists on the current page
-    if (profilePic) {
-      const modal = document.getElementById('image-modal');
-      const modalImg = document.getElementById('modal-image');
-      const closeModal = document.getElementById('close-modal');
-
-      // When the profile picture is clicked:
-      profilePic.onclick = function() {
-        modal.classList.remove('hidden'); // Remove 'hidden' class to show the modal
-        modal.classList.add('flex');      // Add 'flex' to center the content
-        modalImg.src = this.src;          // Set the modal image's src to the clicked image's src
-      }
-
-      // Function to close the modal
-      function hideModal() {
-        modal.classList.add('hidden');
-        modal.classList.remove('flex');
-      }
-
-      // When the 'x' (close button) is clicked
-      closeModal.onclick = hideModal;
-
-      // Also close when clicking on the dark background overlay
-      modal.onclick = function(event) {
-        if (event.target === modal) {
-          hideModal();
-        }
-      }
-    }
-
-    // ====== START: Mobile Menu Toggle ======
-    const menuBtn = document.getElementById('menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-
-    menuBtn.addEventListener('click', () => {
-      mobileMenu.classList.toggle('hidden');
-    });
-    // ====== END: Mobile Menu Toggle ======
-    
+    window.PROJECT_DATA = {{ projects | tojson }};
+    {% if open_project_id %}
+      window.INITIAL_PROJECT_ID = {{ open_project_id }};
+    {% endif %}
   </script>
+
+  <!-- AOS Library -->
+  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+  <script>
+    AOS.init({
+      duration: 800,
+      once: true,
+      offset: 50,
+      easing: 'ease-out-cubic'
+    });
+
+    // Profile photo modal
+    const profilePic = document.getElementById('profile-pic');
+    if (profilePic) {
+      const imgModal = document.getElementById('image-modal');
+      const imgModalImg = document.getElementById('image-modal-img');
+      const imgModalClose = document.getElementById('image-modal-close');
+      
+      profilePic.addEventListener('click', () => {
+        imgModalImg.src = profilePic.src;
+        imgModal.classList.add('open');
+      });
+      imgModalClose.addEventListener('click', () => imgModal.classList.remove('open'));
+      imgModal.addEventListener('click', (e) => {
+        if (e.target === imgModal) imgModal.classList.remove('open');
+      });
+    }
+  </script>
+
+  <!-- Main JavaScript File -->
+  <script src="{{ url_for('static', filename='js/main.js') }}"></script>
 </body>
 </html>

@@ -1,48 +1,400 @@
 {% extends 'base.html' %}
-{% block title %}Home - My portfolio{% endblock %}
+{% block title %}Manishankar Dinesh Bhat — AI/ML & Python Developer{% endblock %}
+
 {% block content %}
-<section id="home" class="home-section">
-  <div class="home-content">
-    <!-- Left column: Intro + buttons + social links -->
-    <div class="left-column"> <h1 data-aos="fade-right" data-aos-delay="100">
-        Hi, I'm <span class="highlight">Manishankar Dinesh Bhat</span>
+
+<!-- ========================================================================
+     1. HERO SECTION
+     ======================================================================== -->
+<section id="hero" class="hero-section">
+  <div class="hero-grid">
+    <!-- Left Column: Intro & Calls to Action -->
+    <div class="hero-text-content">
+      <div data-aos="fade-down" data-aos-delay="100">
+        <span class="status-pill">
+          <span class="pulse-dot"></span>
+          <span>Available for New Opportunities</span>
+        </span>
+      </div>
+
+      <h1 class="hero-title" data-aos="fade-up" data-aos-delay="200">
+        Building <span class="gradient-text">Intelligent AI</span> & Cybersecurity Systems
       </h1>
-      
-      <p data-aos="fade-right" data-aos-delay="200">
-        Welcome to my world of code and data. I'm an AIML student passionate about turning complex ideas into practical, real-world solutions. Explore my projects to see what I'm building!
+
+      <p class="hero-subtitle" data-aos="fade-up" data-aos-delay="300">
+        Hi, I'm <strong class="text-white">Manishankar Dinesh Bhat</strong> — an AIML engineer & developer focused on multi-modal deep learning architectures, transformer NLP models, and production-ready intelligent software.
       </p>
 
-      <div class="mt-6 flex flex-wrap gap-4" data-aos="fade-right" data-aos-delay="300">
-        <a href="{{ url_for('projects') }}" class="btn-primary">View My Work</a>
-        <a href="{{ url_for('contact') }}" class="btn-ghost">Contact Me</a>
+      <!-- Action Buttons -->
+      <div class="flex flex-wrap gap-4" style="display: flex; gap: 14px; flex-wrap: wrap; margin-top: 10px;" data-aos="fade-up" data-aos-delay="400">
+        <a href="#projects" class="btn-igloo-primary">
+          <span>Explore Projects</span>
+          <i class="fas fa-arrow-right"></i>
+        </a>
+        <a href="#contact" class="btn-igloo-secondary">
+          <span>Get in Touch</span>
+          <i class="fas fa-paper-plane"></i>
+        </a>
+        <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" target="_blank" class="btn-igloo-secondary" title="View Resume">
+          <i class="fas fa-file-pdf"></i>
+          <span>Resume</span>
+        </a>
       </div>
 
-      <div class"social-links mt-4 flex flex-wrap gap-4" data-aos="fade-right" data-aos-delay="400">
-        <a href="https://github.com/Manishankar-614" target="_blank" title="GitHub" class="social-icon">
-          <i class="fab fa-github"></i>
-        </a>
-        <a href="https://linkedin.com/in/manishankar-dinesh-bhat" target="_blank" title="LinkedIn" class="social-icon">
-          <i class="fab fa-linkedin"></i>
-        </a>
-        <a href="https://instagram.com/manishankar_d_bhat" target="_blank" title="Instagram" class="social-icon">
-          <i class="fab fa-instagram"></i>
-        </a>
-        <a href="mailto:manihat2005@gmail.com" title="Email" class="social-icon">
-          <i class="fas fa-envelope"></i>
-        </a>
-        <a href="tel:+919380875845" title="Phone" class="social-icon">
-          <i class="fas fa-phone"></i>
-        </a>
+      <!-- Quick Stats Counter -->
+      <div class="hero-stats-row" data-aos="fade-up" data-aos-delay="500">
+        <div class="hero-stat-item">
+          <span class="hero-stat-num gradient-cyan">4+</span>
+          <span class="hero-stat-label">Production Projects</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="hero-stat-num gradient-cyan">12+</span>
+          <span class="hero-stat-label">Core Tech Stacks</span>
+        </div>
+        <div class="hero-stat-item">
+          <span class="hero-stat-num gradient-cyan">AIML</span>
+          <span class="hero-stat-label">Specialization</span>
+        </div>
       </div>
-      
     </div>
 
-    <!-- Right column: Anime image -->
-    <div class="right-column" data-aos="fade-left">
-      <img src="{{ url_for('static', filename='images/my_anime.png') }}" 
-           alt="Anime Character" 
-           class="anime-image" />
+    <!-- Right Column: Interactive 3D Visual & Anime Character -->
+    <div class="hero-visual-wrapper" data-aos="zoom-in" data-aos-delay="300">
+      <div class="avatar-halo"></div>
+
+      <div class="avatar-card-container tilt-element">
+        <!-- Floating Badge 1 -->
+        <div class="floating-chip floating-chip-1">
+          <i class="fas fa-shield-alt text-cyan-neon" style="color: var(--cyan-neon);"></i>
+          <span>BERT & Cyber AI</span>
+        </div>
+
+        <!-- Anime Character Image -->
+        <img src="{{ url_for('static', filename='images/my_anime.png') }}" 
+             alt="Manishankar Anime Character Avatar" 
+             class="hero-avatar-image" />
+
+        <!-- Floating Badge 2 -->
+        <div class="floating-chip floating-chip-2">
+          <i class="fas fa-brain text-cyan-neon" style="color: var(--cyan-neon);"></i>
+          <span>Computer Vision & CNN</span>
+        </div>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ========================================================================
+     2. INFINITE MARQUEE TECH TICKER
+     ======================================================================== -->
+<section class="marquee-section" aria-label="Technologies Ticker">
+  <div class="marquee-track">
+    <!-- Loop Items -->
+    <div class="marquee-item"><i class="fas fa-brain"></i> BERT Transformer</div>
+    <div class="marquee-item"><i class="fab fa-python"></i> Python 3</div>
+    <div class="marquee-item"><i class="fas fa-eye"></i> MobileNetV2</div>
+    <div class="marquee-item"><i class="fas fa-shield-virus"></i> Cybersecurity AI</div>
+    <div class="marquee-item"><i class="fas fa-flask"></i> Flask</div>
+    <div class="marquee-item"><i class="fas fa-microchip"></i> TensorFlow & Keras</div>
+    <div class="marquee-item"><i class="fas fa-chart-line"></i> Scikit-Learn</div>
+    <div class="marquee-item"><i class="fas fa-network-wired"></i> Isolation Forest</div>
+    <div class="marquee-item"><i class="fab fa-docker"></i> Docker</div>
+    <div class="marquee-item"><i class="fab fa-react"></i> React 19</div>
+    <div class="marquee-item"><i class="fas fa-database"></i> Pandas & NumPy</div>
+    <div class="marquee-item"><i class="fab fa-git-alt"></i> Git</div>
+
+    <!-- Duplicate loop for seamless continuous scroll -->
+    <div class="marquee-item"><i class="fas fa-brain"></i> BERT Transformer</div>
+    <div class="marquee-item"><i class="fab fa-python"></i> Python 3</div>
+    <div class="marquee-item"><i class="fas fa-eye"></i> MobileNetV2</div>
+    <div class="marquee-item"><i class="fas fa-shield-virus"></i> Cybersecurity AI</div>
+    <div class="marquee-item"><i class="fas fa-flask"></i> Flask</div>
+    <div class="marquee-item"><i class="fas fa-microchip"></i> TensorFlow & Keras</div>
+    <div class="marquee-item"><i class="fas fa-chart-line"></i> Scikit-Learn</div>
+    <div class="marquee-item"><i class="fas fa-network-wired"></i> Isolation Forest</div>
+    <div class="marquee-item"><i class="fab fa-docker"></i> Docker</div>
+    <div class="marquee-item"><i class="fab fa-react"></i> React 19</div>
+    <div class="marquee-item"><i class="fas fa-database"></i> Pandas & NumPy</div>
+    <div class="marquee-item"><i class="fab fa-git-alt"></i> Git</div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     3. ABOUT ME & SKILLS MATRIX SECTION
+     ======================================================================== -->
+<section id="about" class="content-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">// 01. About Me</span>
+    <h2 class="section-title">Pioneering Multi-Modal AI & Systems</h2>
+    <p class="section-desc">Transforming advanced machine learning research into resilient, full-stack production deployments.</p>
+  </div>
+
+  <div class="about-grid">
+    <!-- Left: Bio & Academic Journey -->
+    <div class="glass-card bio-card tilt-element" data-aos="fade-right">
+      <div style="display: flex; gap: 20px; align-items: center; margin-bottom: 24px;">
+        <img id="profile-pic" 
+             src="{{ url_for('static', filename='images/profile.jpg') }}" 
+             alt="Manishankar Dinesh Bhat Profile" 
+             style="width: 80px; height: 80px; border-radius: 50%; object-fit: cover; border: 2px solid var(--cyan-neon); box-shadow: 0 0 15px var(--cyan-glow); cursor: pointer;"
+             title="Click to zoom photo" />
+        <div>
+          <h3 style="margin-bottom: 4px;">Manishankar Dinesh Bhat</h3>
+          <p style="font-size: 0.88rem; color: var(--cyan-neon); font-weight: 600;">AIML Engineer & Developer</p>
+        </div>
+      </div>
+
+      <p class="bio-text">
+        I am an <strong>Artificial Intelligence & Machine Learning</strong> engineer focused on neural architectures, zero-day threat defense, and computer vision. From training multi-task MobileNetV2 models to fine-tuning BERT transformers with dynamic feature fusion, I thrive on engineering end-to-end intelligent systems.
+      </p>
+
+      <h4 style="font-size: 1.1rem; color: #fff; margin-top: 24px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px;">
+        <i class="fas fa-graduation-cap text-cyan-neon" style="color: var(--cyan-neon);"></i> Education Timeline
+      </h4>
+
+      <div class="timeline-item">
+        <div class="timeline-icon">
+          <i class="fas fa-university"></i>
+        </div>
+        <div class="timeline-content">
+          <h4>B.E. in Artificial Intelligence & Machine Learning</h4>
+          <p style="color: var(--cyan-neon); font-size: 0.85rem; font-weight: 600;">Global Academy Of Technology • 2023 – Present</p>
+          <p style="margin-top: 4px;">Core focus: Deep Learning, Multi-Task Vision Networks, Natural Language Processing, and Cloud AI Architectures.</p>
+        </div>
+      </div>
+
+      <div style="margin-top: 28px; display: flex; gap: 12px; flex-wrap: wrap;">
+        <a href="{{ url_for('static', filename='docs/My_Resume.pdf') }}" target="_blank" class="btn-igloo-primary" style="font-size: 0.88rem; padding: 10px 22px;">
+          <i class="fas fa-file-pdf"></i>
+          <span>Download Resume</span>
+        </a>
+        <a href="https://github.com/Manishankar-614" target="_blank" class="btn-igloo-secondary" style="font-size: 0.88rem; padding: 10px 22px;">
+          <i class="fab fa-github"></i>
+          <span>GitHub Portfolio</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Right: Technical Skills Radar / Categories -->
+    <div class="skills-column" data-aos="fade-left">
+      <!-- Category 1: AI / ML & Transformers -->
+      <div class="skill-category-box tilt-element">
+        <div class="skill-category-title">
+          <i class="fas fa-brain"></i> Deep Learning & Transformers
+        </div>
+        <div class="skill-badges-wrap">
+          <span class="skill-chip"><i class="fas fa-project-diagram text-cyan-neon" style="color: var(--cyan-neon);"></i> BERT Transformer</span>
+          <span class="skill-chip"><i class="fas fa-eye text-cyan-neon" style="color: var(--cyan-neon);"></i> MobileNetV2 & CNNs</span>
+          <span class="skill-chip"><i class="fas fa-microchip text-cyan-neon" style="color: var(--cyan-neon);"></i> TensorFlow & Keras</span>
+          <span class="skill-chip"><i class="fas fa-chart-line text-cyan-neon" style="color: var(--cyan-neon);"></i> Isolation Forest</span>
+          <span class="skill-chip"><i class="fas fa-language text-cyan-neon" style="color: var(--cyan-neon);"></i> NLP Sentiment Modeling</span>
+          <span class="skill-chip"><i class="fas fa-camera text-cyan-neon" style="color: var(--cyan-neon);"></i> Computer Vision</span>
+        </div>
+      </div>
+
+      <!-- Category 2: Backend, Cloud & APIs -->
+      <div class="skill-category-box tilt-element">
+        <div class="skill-category-title">
+          <i class="fas fa-server"></i> Backend, Cloud & Security
+        </div>
+        <div class="skill-badges-wrap">
+          <span class="skill-chip"><i class="fas fa-flask text-cyan-neon" style="color: var(--cyan-neon);"></i> Flask Framework</span>
+          <span class="skill-chip"><i class="fab fa-docker text-cyan-neon" style="color: var(--cyan-neon);"></i> Docker & Compose</span>
+          <span class="skill-chip"><i class="fas fa-shield-alt text-cyan-neon" style="color: var(--cyan-neon);"></i> Threat Intelligence</span>
+          <span class="skill-chip"><i class="fas fa-plug text-cyan-neon" style="color: var(--cyan-neon);"></i> RESTful APIs</span>
+          <span class="skill-chip"><i class="fab fa-react text-cyan-neon" style="color: var(--cyan-neon);"></i> React 19 & TypeScript</span>
+        </div>
+      </div>
+
+      <!-- Category 3: Core Languages & Data Tools -->
+      <div class="skill-category-box tilt-element">
+        <div class="skill-category-title">
+          <i class="fas fa-code"></i> Core Languages & Analytics
+        </div>
+        <div class="skill-badges-wrap">
+          <span class="skill-chip"><i class="fab fa-python text-cyan-neon" style="color: var(--cyan-neon);"></i> Python 3</span>
+          <span class="skill-chip"><i class="fas fa-table text-cyan-neon" style="color: var(--cyan-neon);"></i> Pandas & NumPy</span>
+          <span class="skill-chip"><i class="fas fa-cubes text-cyan-neon" style="color: var(--cyan-neon);"></i> Scikit-Learn</span>
+          <span class="skill-chip"><i class="fab fa-java text-cyan-neon" style="color: var(--cyan-neon);"></i> Java</span>
+          <span class="skill-chip"><i class="fas fa-terminal text-cyan-neon" style="color: var(--cyan-neon);"></i> C & Shell</span>
+          <span class="skill-chip"><i class="fab fa-git-alt text-cyan-neon" style="color: var(--cyan-neon);"></i> Git Version Control</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========================================================================
+     4. PROJECTS SHOWCASE SECTION (3D CARDS & MODAL TRIGGERS)
+     ======================================================================== -->
+<section id="projects" class="content-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">// 02. Featured Projects</span>
+    <h2 class="section-title">Engineered with Precision & Data</h2>
+    <p class="section-desc">Explore live deep learning models, zero-day cybersecurity defense ecosystems, and modern web applications.</p>
+  </div>
+
+  <!-- Filter Navigation Tabs -->
+  <div class="filter-tabs" data-aos="fade-up" data-aos-delay="100">
+    <button class="filter-btn active" data-filter="all">All Projects (4)</button>
+    <button class="filter-btn" data-filter="ai">Deep Learning & Vision</button>
+    <button class="filter-btn" data-filter="nlp">NLP & Sentiment Analysis</button>
+    <button class="filter-btn" data-filter="web">Full Stack Web</button>
+  </div>
+
+  <!-- Projects Grid -->
+  <div class="projects-grid">
+    {% for p in projects %}
+    <article class="project-card-3d tilt-element" data-category="{{ p.category }}" data-aos="fade-up" data-aos-delay="{{ loop.index * 100 }}">
+      <div class="project-image-box">
+        <img src="{{ url_for('static', filename=p.image) }}" alt="{{ p.title }}" class="project-thumb" />
+        <div class="project-image-overlay"></div>
+        <span class="project-category-badge">{{ p.category_label }}</span>
+      </div>
+
+      <div class="project-body">
+        <h3 class="project-title">{{ p.title }}</h3>
+        <p class="project-summary">{{ p.summary }}</p>
+
+        <div class="project-tags">
+          {% for tech in p.stack %}
+          <span class="tech-tag">{{ tech }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="project-footer-actions">
+          <button class="btn-open-modal" data-open-project="{{ p.id }}" aria-label="View {{ p.title }} details">
+            <span>Architecture Deep-Dive</span>
+            <i class="fas fa-arrow-right"></i>
+          </button>
+
+          <div class="project-icon-links">
+            {% if p.github and p.github != '#' %}
+            <a href="{{ p.github }}" target="_blank" class="icon-circle-btn" title="View Source on GitHub">
+              <i class="fab fa-github"></i>
+            </a>
+            {% endif %}
+            {% if p.live and p.live != '#' %}
+            <a href="{{ p.live }}" target="_blank" class="icon-circle-btn" title="Open Live Deployment">
+              <i class="fas fa-external-link-alt"></i>
+            </a>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- ========================================================================
+     5. CONTACT & SOCIAL TERMINAL
+     ======================================================================== -->
+<section id="contact" class="content-section">
+  <div class="section-header" data-aos="fade-up">
+    <span class="section-tag">// 03. Connect</span>
+    <h2 class="section-title">Let's Build Something Exceptional</h2>
+    <p class="section-desc">Have a project idea, question, or opportunity? My inbox is always open.</p>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Left: Quick Contact Cards & Social Hub -->
+    <div class="contact-card-info" data-aos="fade-right">
+      <!-- Direct Email Copy Card -->
+      <div class="quick-contact-box tilt-element" data-copy-email="manibhat2005@gmail.com" title="Click to copy email">
+        <div class="quick-contact-left">
+          <div class="quick-contact-icon">
+            <i class="fas fa-envelope"></i>
+          </div>
+          <div>
+            <div class="quick-contact-title">Direct Email</div>
+            <div class="quick-contact-val">manibhat2005@gmail.com</div>
+          </div>
+        </div>
+        <span class="copy-badge"><i class="fas fa-copy"></i> Copy</span>
+      </div>
+
+      <!-- Phone / Direct Contact -->
+      <div class="quick-contact-box tilt-element" data-copy-email="+919380875845" title="Click to copy phone number">
+        <div class="quick-contact-left">
+          <div class="quick-contact-icon">
+            <i class="fas fa-phone-alt"></i>
+          </div>
+          <div>
+            <div class="quick-contact-title">Phone / WhatsApp</div>
+            <div class="quick-contact-val">+91 93808 75845</div>
+          </div>
+        </div>
+        <span class="copy-badge"><i class="fas fa-copy"></i> Copy</span>
+      </div>
+
+      <!-- Location Card -->
+      <div class="quick-contact-box tilt-element">
+        <div class="quick-contact-left">
+          <div class="quick-contact-icon">
+            <i class="fas fa-map-marker-alt"></i>
+          </div>
+          <div>
+            <div class="quick-contact-title">Location</div>
+            <div class="quick-contact-val">Bengaluru, Karnataka, India</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Social Links Matrix -->
+      <div>
+        <div style="font-size: 0.88rem; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; margin-bottom: 12px;">
+          Social Profiles & Networks
+        </div>
+        <div class="social-links-grid">
+          <a href="https://github.com/Manishankar-614" target="_blank" class="social-pill-card tilt-element">
+            <i class="fab fa-github"></i>
+            <span>GitHub</span>
+          </a>
+          <a href="https://linkedin.com/in/manishankar-dinesh-bhat" target="_blank" class="social-pill-card tilt-element">
+            <i class="fab fa-linkedin"></i>
+            <span>LinkedIn</span>
+          </a>
+          <a href="https://instagram.com/manishankar_d_bhat" target="_blank" class="social-pill-card tilt-element">
+            <i class="fab fa-instagram"></i>
+            <span>Instagram</span>
+          </a>
+          <a href="mailto:manibhat2005@gmail.com" class="social-pill-card tilt-element">
+            <i class="fas fa-paper-plane"></i>
+            <span>Email</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Glassmorphic Message Form -->
+    <div class="glass-card tilt-element" data-aos="fade-left">
+      <h3 style="font-size: 1.4rem; color: #fff; margin-bottom: 8px;">Send a Direct Message</h3>
+      <p style="color: var(--text-secondary); font-size: 0.92rem; margin-bottom: 24px;">Fill out the form below and I'll respond as soon as possible.</p>
+
+      <form action="https://formspree.io/f/xpwoaeoy" method="POST" class="igloo-form">
+        <div class="form-group">
+          <label class="form-label" for="form-name">Your Full Name</label>
+          <input id="form-name" type="text" name="name" placeholder="e.g. Alex Morgan" class="igloo-input" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-email">Your Email Address</label>
+          <input id="form-email" type="email" name="email" placeholder="e.g. alex@example.com" class="igloo-input" required />
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="form-message">Your Message</label>
+          <textarea id="form-message" name="message" rows="5" placeholder="Hi Manishankar, I'd like to talk about..." class="igloo-input" required></textarea>
+        </div>
+
+        <button type="submit" class="btn-igloo-primary" style="width: 100%; margin-top: 8px;">
+          <span>Send Message</span>
+          <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
 {% endblock %}

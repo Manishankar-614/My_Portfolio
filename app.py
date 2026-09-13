@@ -1,121 +1,126 @@
-from flask import Flask, render_template, jsonify, redirect, url_for
-# Note: Removed imports for request, redirect, url_for, flash, json, and Path
+from flask import Flask, render_template, jsonify, redirect, url_for, send_from_directory
+import os
 
 app = Flask(__name__)
-
-# Removed app.secret_key - no longer needed as flash() is removed.
-# Removed BASE_DIR, DATA_DIR, and MESSAGES_FILE - no longer saving to JSON.
-
-# Sample projects - edit these entries to match your projects and image filenames
-# In app.py
-# In app.py
-
-# In app.py
 
 PROJECTS = [
     {
         "id": 1,
-        "title": "Personal Portfolio Website",
-        "summary": "The portfolio website you're looking at now, built with Flask, Tailwind CSS, and Python.",
-        "image": "images/project1.png",
-        "stack": ["Flask", "Tailwind CSS", "Python"],
-        "github": "https://github.com/Manishankar-614/My_Portfolio",
-        "live": "https://my-portfolio-zv2n.onrender.com",
+        "title": "PhishGuard AI — Multi-Modal Phishing Defense",
+        "category": "ai",
+        "category_label": "Cybersecurity & Transformers",
+        "summary": "Next-gen zero-day phishing defense combining Fine-Tuned BERT, 1D Character CNN, and Isolation Forest behavioral telemetry with a React 19 dashboard & Chrome extension.",
+        "image": "images/project_phishing.jpg",
+        "stack": ["BERT Transformer", "1D Character CNN", "Isolation Forest", "React 19", "Flask", "Docker"],
+        "github": "https://github.com/Manishankar-614/phishing_detection",
+        "live": "#",
         "description": (
-            "This portfolio is a dynamic Flask application designed to showcase my skills and projects. "
-            "It's built from scratch using Tailwind CSS for responsive, utility-first design, and deployed... (add more here)"
+            "PhishGuard AI is an enterprise-grade multi-modal cybersecurity intelligence platform. Unlike conventional filters that rely solely "
+            "on static blocklists, PhishGuard AI aggregates cross-domain threat signals: fine-tuned BERT transformer for deceptive email semantics, "
+            "1D Character CNN inspecting raw URL character sequences & homoglyphs, and Isolation Forest anomaly detection analyzing client interaction "
+            "telemetry (click velocity, dwell time, typing cadence). Features an explainable attribution engine with severity breakdowns (CRITICAL to LOW), "
+            "a React 19 dashboard, and a Manifest V3 browser extension."
         ),
         "challenges": (
-            "One challenge was implementing the 'active' navigation state, which required passing variables from each "
-            "Flask route to the base template. Another was ensuring the design was fully responsive on all devices, "
-            "which I achieved using Tailwind's mobile-first breakpoints."
+            "1. **Multi-Modal Feature Fusion**: Designing a dynamic weighted ensemble layer to synthesize heterogeneous outputs from natural language "
+            "transformers, convolutional feature maps, and non-parametric anomaly trees without introducing latency.\n\n"
+            "2. **Real-Time Telemetry Tracking**: Engineering a lightweight, privacy-preserving behavioral tracker capable of capturing sub-second client "
+            "telemetry without disrupting user experience."
         )
     },
     {
         "id": 2,
-        "title": "Plant Disease Detection",
-        "summary": "A deep learning model (CNN) to detect and classify diseases across various plant parts, including leaves, fruits, and stems.",
-        "image": "images/project2.png",
-        "stack": ["Keras", "Flask", "CNN"],
-        "github": "https://github.com/mani-614/plant-disease-detection",
+        "title": "Plant Disease Multi-Task Vision Classifier",
+        "category": "ai",
+        "category_label": "Computer Vision / CNN",
+        "summary": "Deep learning vision system leveraging MobileNetV2 architecture to simultaneously classify plant parts (fruit, leaf, stem) and diagnose agricultural pathogens.",
+        "image": "images/project_plant.jpg",
+        "stack": ["MobileNetV2", "TensorFlow", "Keras", "Python", "Computer Vision", "Flask"],
+        "github": "https://github.com/Manishankar-614/Plant_Disease_Detection",
         "live": "#",
         "description": (
-            "This project is a comprehensive disease detection system for agriculture. It uses a Convolutional Neural Network (CNN) "
-            "built with Keras to identify diseases across different parts of a plant, including leaves, fruits, and stems. "
-            "The model was trained on a custom-built dataset. A simple Flask app provides a web interface where a user can "
-            "upload an image and receive an immediate prediction, helping to identify potential crop issues early."
+            "A multi-task deep learning model designed for automated crop health monitoring and early agricultural disease intervention. "
+            "The neural network utilizes a fine-tuned MobileNetV2 backbone to simultaneously predict both the botanical organ (leaf, fruit, stem) "
+            "and the specific disease class from real-world imagery, optimizing agricultural yield protection."
         ),
         "challenges": (
-            "The primary challenge was **creating a robust database**. This involved sourcing, cleaning, and labeling thousands "
-            "of images for multiple plant parts (leaves, fruits, stems) and various disease states. I used extensive "
-            "data augmentation to build a larger, more resilient training set.\n\n"
-            "The second major challenge was **selecting the right model**. I experimented with several CNN architectures "
-            "(like VGG16 and ResNet) to find the best balance between accuracy and performance. The final model was "
-            "chosen after comparing validation accuracy and loss, ensuring it could generalize well to new, unseen images."
+            "1. **Multi-Task Learning Head**: Building and balancing multi-loss functions (cross-entropy for organ classification and disease diagnosis) "
+            "to ensure the shared convolutional representation generalized well across diverse crops.\n\n"
+            "2. **Data Imbalance & Augmentation**: Mitigating dataset skew across rare plant pathologies using extensive affine transformations, "
+            "color jittering, and synthetic oversampling."
         )
     },
     {
         "id": 3,
-        "title": "Movie Recommender System (In Progress)",
-        "summary": "Currently building a content-based recommender system that will suggest movies based on plot summaries.",
-        "image": "images/project3.png",
-        "stack": ["Scikit-learn", "Pandas", "Flask"],
-        "github": "#", # Add your repo link as soon as you create it
+        "title": "IMDB Movie Review Sentiment Classifier",
+        "category": "nlp",
+        "category_label": "NLP & Machine Learning",
+        "summary": "Full-stack NLP machine learning web application evaluating cinematic reviews using text vectorization and sentiment classification with Scikit-learn and Flask.",
+        "image": "images/project_movie.jpg",
+        "stack": ["Scikit-Learn", "NLP", "Flask", "Pandas", "Joblib", "Python"],
+        "github": "https://github.com/Manishankar-614/movie-review",
         "live": "#",
         "description": (
-            "This project is currently in development. I am building a content-based recommendation engine, "
-            "similar to what you might find on Netflix. The system will work by analyzing the plot summaries and "
-            "genres of movies from the TMDB 5000 dataset.\n\n"
-            "The goal is to create a Flask app where a user can type in a movie title and get a list of "
-            "the top 5 most similar recommendations."
+            "An end-to-end Natural Language Processing system trained on 50,000 IMDB movie reviews to accurately gauge viewer sentiment. "
+            "Features real-time text processing, tokenization, TF-IDF vectorization, and serialized inference models served via an interactive Flask web interface."
         ),
         "challenges": (
-            "The main challenge I'm currently working on is **feature engineering**: converting the raw text of plot "
-            "summaries into a numerical format that a model can understand. I'm using **Scikit-learn's `TfidfVectorizer`** "
-            "for this. The next step will be to implement **`cosine_similarity`** to find the 'closeness' between movies."
+            "1. **Text Preprocessing & Noise Reduction**: Cleaning HTML tags, stop-words, and colloquial slang while preserving negations ('not good' vs 'good') "
+            "that drastically influence sentiment polarity.\n\n"
+            "2. **Low-Latency Model Serialization**: Optimizing memory footprint and inference speed using Joblib pipelines for instant response times in web deployments."
+        )
+    },
+    {
+        "id": 4,
+        "title": "Personal Portfolio & Interactive SPA",
+        "category": "web",
+        "category_label": "Web App & Flask",
+        "summary": "Single-page responsive portfolio inspired by Igloo.inc, featuring glassmorphism UI, 3D card tilt physics, cursor spotlight, floating dock navigation, and Flask backend.",
+        "image": "images/project_portfolio.jpg",
+        "stack": ["Flask", "JavaScript", "HTML5 & CSS3", "Tailwind CSS", "Python"],
+        "github": "https://github.com/Manishankar-614/My_Portfolio",
+        "live": "https://my-portfolio-zv2n.onrender.com",
+        "description": (
+            "A high-performance personal portfolio built from scratch with custom CSS tokens, single-page scrolling architecture, "
+            "real-time ScrollSpy floating dock, ambient glowing particles, and interactive 3D modal drawers. Showcases AI/ML systems and engineering projects."
+        ),
+        "challenges": (
+            "1. **60fps Animation Performance**: Balancing ambient particle canvas, continuous marquee ticker, and 3D card tilt calculations without UI stuttering.\n\n"
+            "2. **Responsive Glassmorphic Layout**: Crafting fluid layouts that maintain visual hierarchy and tactile feedback across both desktop and mobile screens."
         )
     }
 ]
 
-# Removed _load_messages() function - no longer needed.
-# Removed _save_message() function - no longer needed.
-
 @app.route("/")
 def index():
-    return render_template("index.html", projects=PROJECTS, active_page="home")
+    return render_template("index.html", projects=PROJECTS, active_section="hero")
 
 @app.route("/about")
 def about():
-    return render_template("about.html", active_page="about")
+    return render_template("index.html", projects=PROJECTS, active_section="about")
 
 @app.route("/projects")
 def projects():
-    return render_template("projects.html", projects=PROJECTS, active_page="projects")
+    return render_template("index.html", projects=PROJECTS, active_section="projects")
 
-@app.route("/contact") # Removed methods=["GET", "POST"]
+@app.route("/contact")
 def contact():
-    # Removed all the "if request.method == POST" logic.
-    # Formspree is handling the form submission now.
-    return render_template("contact.html", active_page="contact")
+    return render_template("index.html", projects=PROJECTS, active_section="contact")
+
+@app.route("/resume")
+def resume():
+    return send_from_directory(os.path.join(app.root_path, "static", "docs"), "My_Resume.pdf")
+
+@app.route("/project/<int:id>")
+def project_detail(id):
+    project = next((p for p in PROJECTS if p['id'] == id), None)
+    if project:
+        return render_template("index.html", projects=PROJECTS, active_section="projects", open_project_id=id)
+    return redirect(url_for("index"))
 
 @app.route("/api/projects")
 def api_projects():
     return jsonify(PROJECTS)
 
-# In app.py, after your /api/projects route
-
-@app.route("/project/<int:id>")
-def project_detail(id):
-    # Find the project with the matching id
-    project = next((p for p in PROJECTS if p['id'] == id), None)
-    
-    if project:
-        # Pass the active_page variable so your nav bar highlight still works
-        return render_template("project_detail.html", project=project, active_page="projects")
-    else:
-        # If no project is found, redirect back to the main projects page
-        return redirect(url_for("projects"))
-
 if __name__ == "__main__":
-    # Set debug=False when you deploy
-    app.run(debug=False)
+    app.run(debug=True, port=5000)
